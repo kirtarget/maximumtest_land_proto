@@ -9,7 +9,7 @@ const rows = [
   { label: 'Пробные экзамены', tutor: 'иногда', course: 'иногда', max: 'каждый месяц' },
   { label: 'Личный кабинет для родителей', tutor: null, course: null, max: true },
   { label: 'Психологическая поддержка', tutor: null, course: null, max: 'вебинары' },
-  { label: 'Отбор преподавателей', tutor: 'ваша удача', course: '—', max: 'буткемп, 3%' },
+  { label: 'Отбор преподавателей', tutor: 'ваша удача', course: '—', max: 'Отбор + обучение' },
   { label: 'Присутствие в городах', tutor: '1 город', course: 'онлайн', max: '65 городов' },
 ]
 
@@ -27,7 +27,7 @@ export default function ComparisonTable() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-dark">MAXIMUM vs репетитор vs другие курсы</h2>
-          <p className="mt-3 text-muted text-lg">Честное сравнение. Решайте сами.</p>
+          <p className="mt-3 text-muted text-lg">Честное сравнение.</p>
         </div>
 
         <div className="overflow-x-auto rounded-[20px] border border-border shadow-sm">

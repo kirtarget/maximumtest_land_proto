@@ -3,7 +3,7 @@ import StatCard from '@/components/ui/StatCard'
 const stats = [
   { number: '13', label: 'лет готовим к экзаменам' },
   { number: '93%', label: 'учеников проходят курсы до конца' },
-  { number: '450000+', label: 'семей доверяют нам' },
+  { number: '450000+', label: 'семей доверили нам подготовку' },
   { number: '80+', label: 'баллов ЕГЭ — каждый 3-й ученик' },
   { number: '90+', label: 'баллов ЕГЭ — каждый 5-й ученик' },
 ]

@@ -70,7 +70,7 @@ export default function Hero() {
             className="hidden lg:flex flex-col gap-4 bg-white/15 backdrop-blur-sm rounded-[24px] p-7 border border-white/20 min-w-[220px]"
           >
             {[
-              { n: '93%', l: 'доходят до экзамена' },
+              { n: '93%', l: 'доходят до конца курса' },
               { n: '80+', l: 'баллов — каждый 3-й' },
               { n: '90+', l: 'баллов — каждый 5-й' },
               { n: '100%', l: 'возврат, если не сдал' },

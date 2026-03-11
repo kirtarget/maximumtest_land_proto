@@ -13,7 +13,7 @@ const golos = Golos_Text({
 
 export const metadata: Metadata = {
   title: 'Подготовка к ЕГЭ и ОГЭ онлайн | MAXIMUM Education — гарантия результата',
-  description: 'Школа, которая доводит до результата. Гарантированно. 93% учеников проходят курсы до конца. 80+ баллов ЕГЭ — каждый 3-й ученик. 450 000 семей доверяют нам.',
+  description: 'Школа, которая доводит до результата. Гарантированно. 93% учеников проходят курсы до конца. 80+ баллов ЕГЭ — каждый 3-й ученик. 450 000 семей доверили нам подготовку к экзаменам.',
   metadataBase: new URL('https://maximumtest.ru'),
   alternates: { canonical: 'https://maximumtest.ru/' },
   robots: { index: true, follow: true },

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#27AE60"/>
+  <circle cx="200" cy="155" r="75" fill="white" opacity="0.25"/>
+  <circle cx="200" cy="370" r="130" fill="white" opacity="0.18"/>
+  <text x="200" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="96" font-weight="700" fill="white">ЕС</text>
+</svg>

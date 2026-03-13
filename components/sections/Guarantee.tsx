@@ -15,12 +15,12 @@ export default function Guarantee() {
 
           {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-[#FD7E14]/20 rounded-full px-4 py-1.5 mb-6">
-              <ShieldCheck className="w-4 h-4 text-[#FD7E14]" />
-              <span className="text-[#FD7E14] text-sm font-semibold">Гарантия результата</span>
+            <div className="inline-flex items-center gap-2 bg-orange/20 rounded-full px-4 py-1.5 mb-6">
+              <ShieldCheck className="w-4 h-4 text-orange" />
+              <span className="text-orange text-sm font-semibold">Гарантия результата</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-6">
-              Мы уверены в результате настолько,<br />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug mb-6">
+              Мы уверены в результате настолько,
               что прописали это в договоре
             </h2>
             <p className="text-white/70 text-lg leading-relaxed mb-8">
@@ -29,7 +29,7 @@ export default function Guarantee() {
             </p>
             <Button
               href="/offer.pdf" label="guarantee_contract"
-              className="bg-[#FD7E14] text-white hover:bg-[#FF8D23]"
+              className="bg-orange text-white hover:bg-orangeh"
             >
               Посмотреть договор
             </Button>
@@ -41,8 +41,8 @@ export default function Guarantee() {
               const Icon = p.icon
               return (
                 <div key={i} className="flex items-start gap-4 bg-white/5 rounded-[20px] p-5 border border-white/10">
-                  <div className="w-10 h-10 bg-[#FD7E14]/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-[#FD7E14]" />
+                  <div className="w-10 h-10 bg-orange/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-orange" />
                   </div>
                   <div>
                     <p className="font-semibold text-white mb-1">{p.title}</p>

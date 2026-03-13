@@ -30,7 +30,7 @@ export default function ProblemSolution() {
     <section className="bg-light py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-dark">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
             Наша цель — максимальный результат вашего ребёнка
           </h2>
           <p className="mt-3 text-muted text-lg max-w-xl mx-auto">
@@ -59,8 +59,8 @@ export default function ProblemSolution() {
                 </div>
                 {/* Solution */}
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#FD7E14]/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-[#FD7E14] font-bold text-base">✓</span>
+                  <div className="w-9 h-9 rounded-xl bg-orange/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-orange font-bold text-base">✓</span>
                   </div>
                   <p className="text-muted text-sm leading-relaxed">{item.solution}</p>
                 </div>

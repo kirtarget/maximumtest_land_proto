@@ -22,10 +22,10 @@ export default function Button({
   const sizes = { sm: 'h-10 px-5 text-sm', md: 'h-12 px-7 text-base', lg: 'h-14 px-8 text-lg' }
 
   const variants = {
-    primary: 'bg-[#FD7E14] text-white hover:bg-[#FF8D23] disabled:bg-border disabled:text-muted',
-    outline: 'border-2 border-[#FD7E14] text-[#FD7E14] hover:bg-[#FD7E14] hover:text-white',
-    ghost:   'text-[#2E2E2E] hover:bg-[#F5F5F5]',
-    white:   'bg-white text-[#FD7E14] hover:bg-white/90',
+    primary: 'bg-orange text-white hover:bg-orangeh disabled:bg-border disabled:text-muted',
+    outline: 'border-2 border-orange text-orange hover:bg-orange hover:text-white',
+    ghost:   'text-dark hover:bg-light',
+    white:   'bg-white text-orange hover:bg-white/90',
   }
 
   const cls = `${base} ${sizes[size]} ${variants[variant]} ${className}`

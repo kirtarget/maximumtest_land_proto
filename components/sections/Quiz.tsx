@@ -30,7 +30,7 @@ function Progress({ step, total }: { step: number; total: number }) {
         <span>Шаг {step} из {total}</span><span>{Math.round(step / total * 100)}%</span>
       </div>
       <div className="h-1.5 bg-border rounded-full">
-        <div className="h-full bg-[#FD7E14] rounded-full transition-all duration-300" style={{ width: `${step / total * 100}%` }} />
+        <div className="h-full bg-orange rounded-full transition-all duration-300" style={{ width: `${step / total * 100}%` }} />
       </div>
     </div>
   )
@@ -79,13 +79,13 @@ export default function Quiz() {
     <section id="quiz" className="bg-light py-16 md:py-24">
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-dark">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
             Узнайте стоимость подготовки для вашего ребёнка
           </h2>
           <p className="mt-3 text-muted">4 вопроса · 2 минуты · персональная программа</p>
         </div>
 
-        <div className="bg-white rounded-[24px] p-7 md:p-10 shadow-[0_4px_40px_rgba(0,0,0,0.08)]">
+        <div className="bg-white rounded-[20px] p-5 sm:p-7 md:p-10 shadow-[0_4px_40px_rgba(0,0,0,0.08)]">
 
           {step === 5 ? (
             <div className="text-center py-8">
@@ -104,7 +104,7 @@ export default function Quiz() {
               <div className="flex flex-col gap-3">
                 {STEPS[step].opts.map(opt => (
                   <button key={opt} onClick={() => pickSingle(STEPS[step].key, opt)}
-                    className="w-full text-left px-5 py-3.5 rounded-xl border border-border hover:border-[#FD7E14] hover:bg-[#FD7E14]/5 transition-all text-dark font-medium text-base">
+                    className="w-full text-left px-5 py-3.5 rounded-xl border border-border hover:border-orange hover:bg-orange/5 transition-all text-dark font-medium text-base">
                     {opt}
                   </button>
                 ))}
@@ -120,7 +120,7 @@ export default function Quiz() {
                   const sel = ((answers.subjects as string[]) || []).includes(s)
                   return (
                     <button key={s} onClick={() => toggleSubject(s)}
-                      className={`px-4 py-2 rounded-xl border font-medium text-sm transition-all ${sel ? 'bg-[#FD7E14] text-white border-[#FD7E14]' : 'border-border text-dark hover:border-[#FD7E14] hover:bg-[#FD7E14]/5'}`}>
+                      className={`px-4 py-2 rounded-xl border font-medium text-sm transition-all ${sel ? 'bg-orange text-white border-orange' : 'border-border text-dark hover:border-orange hover:bg-orange/5'}`}>
                       {s}
                     </button>
                   )
@@ -136,16 +136,16 @@ export default function Quiz() {
               <Progress step={5} total={totalSteps} />
               <p className="text-lg font-semibold text-dark">Последний шаг — и программа готова</p>
               <input {...register('name')} placeholder="Имя ребёнка"
-                className="w-full h-12 px-4 rounded-xl border border-border focus:border-[#FD7E14] focus:outline-none text-dark placeholder:text-muted/60 text-base" />
-              {errors.name && <p className="text-[#FD7E14] text-sm">{errors.name.message}</p>}
+                className="w-full h-12 px-4 rounded-xl border border-border focus:border-orange focus:outline-none text-dark placeholder:text-muted/60 text-base" />
+              {errors.name && <p className="text-orange text-sm">{errors.name.message}</p>}
               <input {...register('phone')} placeholder="Телефон родителя" type="tel"
-                className="w-full h-12 px-4 rounded-xl border border-border focus:border-[#FD7E14] focus:outline-none text-dark placeholder:text-muted/60 text-base" />
-              {errors.phone && <p className="text-[#FD7E14] text-sm">{errors.phone.message}</p>}
+                className="w-full h-12 px-4 rounded-xl border border-border focus:border-orange focus:outline-none text-dark placeholder:text-muted/60 text-base" />
+              {errors.phone && <p className="text-orange text-sm">{errors.phone.message}</p>}
               <label className="flex items-start gap-3 cursor-pointer">
                 <input {...register('agree')} type="checkbox" className="mt-1 accent-orange w-4 h-4" />
-                <span className="text-sm text-muted">Согласен с <a href="/privacy" className="text-[#FD7E14] underline">обработкой персональных данных</a></span>
+                <span className="text-sm text-muted">Согласен с <a href="/privacy" className="text-orange underline">обработкой персональных данных</a></span>
               </label>
-              {errors.agree && <p className="text-[#FD7E14] text-sm">{errors.agree.message}</p>}
+              {errors.agree && <p className="text-orange text-sm">{errors.agree.message}</p>}
               {error && <p className="text-red-500 text-sm">{error}</p>}
               <Button type="submit" disabled={loading} label="quiz_submit" className="w-full justify-center h-14 text-base">
                 {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Узнать стоимость'}

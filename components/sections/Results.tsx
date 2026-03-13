@@ -30,7 +30,7 @@ export default function Results() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-dark">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
               Они тоже боялись.<br className="hidden sm:block" /> Посмотрите, что получилось.
             </h2>
           </div>
@@ -40,7 +40,7 @@ export default function Results() {
           </div>
         </div>
 
-        <div className="overflow-hidden" ref={emblaRef}>
+        <div className="overflow-hidden -mx-1 px-1" ref={emblaRef}>
           <div className="flex gap-5">
             {reviews.map((r, i) => (
               <div key={i} className="flex-[0_0_90%] sm:flex-[0_0_55%] lg:flex-[0_0_38%]">

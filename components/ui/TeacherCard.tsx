@@ -13,18 +13,18 @@ export default function TeacherCard({ photo, name, subject, achievement1, achiev
         </div>
         <div>
           <div className="font-semibold text-dark">{name}</div>
-          <div className="text-sm text-[#FD7E14] font-medium">{subject}</div>
+          <div className="text-sm text-orange font-medium">{subject}</div>
         </div>
       </div>
       <ul className="space-y-1.5">
         <li className="text-sm text-muted flex items-start gap-2">
-          <span className="text-[#FD7E14] mt-0.5 font-bold">✓</span>{achievement1}
+          <span className="text-orange mt-0.5 font-bold">✓</span>{achievement1}
         </li>
         <li className="text-sm text-muted flex items-start gap-2">
-          <span className="text-[#FD7E14] mt-0.5 font-bold">✓</span>{achievement2}
+          <span className="text-orange mt-0.5 font-bold">✓</span>{achievement2}
         </li>
       </ul>
-      <blockquote className="text-sm italic text-muted border-l-2 border-[#FD7E14] pl-3 leading-relaxed">
+      <blockquote className="text-sm italic text-muted border-l-2 border-orange pl-3 leading-relaxed">
         &laquo;{quote}&raquo;
       </blockquote>
     </div>

@@ -46,7 +46,7 @@ export default function Teachers() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-dark">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
               Наши преподаватели
             </h2>
             <p className="mt-3 text-muted text-lg">

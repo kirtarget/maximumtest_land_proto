@@ -4,7 +4,7 @@ interface Props {
 export default function ResultCard({ before, after, name, subject, source }: Props) {
   return (
     <div className="bg-white rounded-[20px] p-6 shadow-[0_4px_24px_rgba(0,0,0,0.08)] flex flex-col gap-4 min-w-[300px] max-w-[420px]">
-      <span className="inline-flex self-start bg-[#FD7E14]/10 text-[#FD7E14] text-xs font-semibold px-3 py-1 rounded-full">{subject}</span>
+      <span className="inline-flex self-start bg-orange/10 text-orange text-xs font-semibold px-3 py-1 rounded-full">{subject}</span>
       <div className="bg-light rounded-xl p-4 text-sm text-muted italic leading-relaxed">
         <span className="not-italic mr-1">😰</span>&laquo;{before}&raquo;
       </div>

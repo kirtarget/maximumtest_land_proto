@@ -36,7 +36,7 @@ export default function StatCard({ number, label }: Props) {
   const display = useCountUp(number, active)
   return (
     <div ref={ref} className="flex flex-col items-center text-center min-w-[130px] px-4">
-      <span className="text-4xl md:text-5xl font-bold text-[#FD7E14] leading-none">{display}</span>
+      <span className="text-4xl md:text-5xl font-bold text-orange leading-none">{display}</span>
       <span className="mt-2 text-sm md:text-base text-muted leading-snug uppercase tracking-wide font-medium">{label}</span>
     </div>
   )

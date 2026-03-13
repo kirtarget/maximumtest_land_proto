@@ -20,9 +20,9 @@ const stats = [
 ]
 
 const perks = [
-  { emoji: '🏫', title: 'Можно прийти и посмотреть',      sub: 'Запишитесь на пробный урок в ближайшем центре' },
-  { emoji: '🌐', title: 'Онлайн — для любого города',     sub: 'Те же преподаватели, та же система, те же результаты' },
-  { emoji: '📍', title: 'Франшиза с 2017 года',            sub: 'Единый стандарт качества во всех городах' },
+  { emoji: '🏫', title: 'Можно прийти и посмотреть',  sub: 'Запишитесь на пробный урок в ближайшем центре' },
+  { emoji: '🌐', title: 'Онлайн — для любого города', sub: 'Те же преподаватели, та же система, те же результаты' },
+  { emoji: '📍', title: 'Франшиза с 2017 года',        sub: 'Единый стандарт качества во всех городах' },
 ]
 
 export default function OfflineCities() {
@@ -31,72 +31,70 @@ export default function OfflineCities() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* A — шапка */}
-        <div className="flex flex-col md:flex-row md:items-start gap-10">
+        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-10">
 
           {/* Левая колонка */}
-          <div className="max-w-[520px]">
-            <span className="inline-flex bg-[#FD7E14]/10 text-[#FD7E14] text-xs font-semibold px-3 py-1 rounded-full mb-4">
+          <div className="flex-1">
+            <span className="inline-flex bg-orange/10 text-orange text-xs font-semibold px-3 py-1 rounded-full mb-4">
               Офлайн и онлайн
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2E2E2E] leading-tight">
-              Мы не стартап.<br />
-              Нас можно найти в 65 городах.
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark leading-tight">
+              Мы не стартап. Нас можно найти в 65 городах.
             </h2>
-            <p className="text-base text-[#8F96A1] leading-relaxed mt-4">
+            <p className="text-base text-muted leading-relaxed mt-4">
               13 лет работы — это не слова на сайте. Это реальные адреса,
               реальные преподаватели и родители, которые могут прийти
               на занятие и посмотреть своими глазами.
             </p>
           </div>
 
-          {/* Правая колонка — три цифры */}
-          <div className="flex flex-wrap gap-3 md:ml-auto">
+          {/* Три цифры */}
+          <div className="grid grid-cols-3 gap-3 md:flex md:flex-col md:gap-3 md:min-w-[160px]">
             {stats.map(s => (
-              <div key={s.n} className="bg-[#F5F5F5] rounded-2xl p-6 text-center min-w-[110px] flex-1">
-                <div className="text-4xl md:text-5xl font-bold text-[#FD7E14] leading-none">{s.n}</div>
-                <div className="text-xs text-[#8F96A1] mt-2 leading-snug">{s.label}</div>
+              <div key={s.n} className="bg-light rounded-2xl p-4 md:p-5 text-center">
+                <div className="text-3xl md:text-4xl font-bold text-orange leading-none">{s.n}</div>
+                <div className="text-[11px] md:text-xs text-muted mt-1.5 leading-snug">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* B — сетка городов */}
-        <div className="flex flex-wrap gap-2.5 mt-10">
+        <div className="flex flex-wrap gap-2 mt-10">
           {CITIES.map(city => (
             <div
               key={city.name}
-              className="bg-[#F5F5F5] border border-[#E8E8E8] rounded-xl px-4 py-3 flex items-center gap-2.5"
+              className="bg-light border border-border rounded-xl px-3 py-2.5 flex items-center gap-2"
             >
-              <div className="w-2 h-2 rounded-full bg-[#FD7E14] flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-orange flex-shrink-0" />
               <div>
-                <div className="text-sm font-semibold text-[#2E2E2E]">{city.name}</div>
-                <div className="text-xs text-[#8F96A1] mt-0.5">{city.since}</div>
+                <div className="text-sm font-semibold text-dark leading-none">{city.name}</div>
+                <div className="text-[11px] text-muted mt-0.5">{city.since}</div>
               </div>
             </div>
           ))}
-          <div className="bg-[#FD7E14] rounded-xl px-4 py-3 flex items-center">
+          <div className="bg-orange rounded-xl px-3 py-2.5 flex items-center">
             <span className="text-sm font-semibold text-white">+ ещё 53 города →</span>
           </div>
         </div>
 
         {/* C — нижняя полоска */}
-        <div className="mt-10 bg-[#F5F5F5] rounded-2xl p-6 flex flex-wrap gap-8 items-center">
-          {perks.map((p, i) => (
-            <>
-              <div key={p.title} className="flex items-start gap-3 flex-1 min-w-[200px]">
-                <div className="w-10 h-10 bg-[#FD7E14]/10 rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
+        <div className="mt-8 bg-light rounded-2xl p-5 md:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0">
+            {perks.map((p, i) => (
+              <div key={p.title} className="flex items-start gap-3 md:px-6 first:pl-0 last:pr-0">
+                {/* vertical divider between items on desktop */}
+                {i > 0 && <div className="hidden md:block absolute left-0 top-2 w-px h-10 bg-border" />}
+                <div className="w-10 h-10 bg-orange/10 rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
                   {p.emoji}
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-[#2E2E2E]">{p.title}</div>
-                  <div className="text-xs text-[#8F96A1] mt-1">{p.sub}</div>
+                  <div className="text-sm font-bold text-dark">{p.title}</div>
+                  <div className="text-xs text-muted mt-1 leading-relaxed">{p.sub}</div>
                 </div>
               </div>
-              {i < perks.length - 1 && (
-                <div className="w-px h-10 bg-[#E8E8E8] hidden md:block flex-shrink-0" />
-              )}
-            </>
-          ))}
+            ))}
+          </div>
         </div>
 
       </div>

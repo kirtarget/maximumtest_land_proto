@@ -13,9 +13,23 @@ const faqs = [
   { q: 'Есть ли психологическая поддержка?', a: 'Да. Мы проводим регулярные вебинары для учеников и родителей по управлению тревогой перед экзаменами. Это входит в программу — потому что состояние ребёнка важнее любых баллов.' },
 ]
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+}
+
 export default function FAQ() {
   return (
     <section className="bg-white py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-dark text-center mb-12">
           Часто задаваемые вопросы

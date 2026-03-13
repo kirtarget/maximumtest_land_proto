@@ -21,7 +21,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-[#FD7E14] font-bold text-2xl">M</span>
+              <span className="text-orange font-bold text-2xl">M</span>
               <span className="font-bold text-white text-lg">MAXIMUM</span>
             </div>
             <a href="tel:88007072562" className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm mb-1">

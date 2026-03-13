@@ -26,7 +26,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <a href="/" className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-[#FD7E14] font-bold text-2xl leading-none">M</span>
+          <span className="text-orange font-bold text-2xl leading-none">M</span>
           <span className="font-bold text-dark text-lg leading-none hidden sm:block">MAXIMUM</span>
         </a>
 
@@ -34,7 +34,7 @@ export default function Navbar() {
         <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map(l => (
             <a key={l.href} href={l.href}
-              className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-dark hover:text-[#FD7E14] transition-colors rounded-lg hover:bg-light">
+              className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-dark hover:text-orange transition-colors rounded-lg hover:bg-light">
               {l.label}
             </a>
           ))}
@@ -43,7 +43,7 @@ export default function Navbar() {
         {/* Desktop right */}
         <div className="hidden lg:flex items-center gap-3">
           <a href="tel:88007072562"
-            className="flex items-center gap-1.5 text-sm text-muted hover:text-[#FD7E14] transition-colors">
+            className="flex items-center gap-1.5 text-sm text-muted hover:text-orange transition-colors">
             <Phone className="w-4 h-4" />
             8 (800) 707-25-62
           </a>
@@ -63,7 +63,7 @@ export default function Navbar() {
         <div className="lg:hidden bg-white border-t border-border px-4 pb-4 flex flex-col gap-1">
           {navLinks.map(l => (
             <a key={l.href} href={l.href}
-              className="py-3 font-medium text-dark hover:text-[#FD7E14] transition-colors border-b border-border last:border-0"
+              className="py-3 font-medium text-dark hover:text-orange transition-colors border-b border-border last:border-0"
               onClick={() => setOpen(false)}>
               {l.label}
             </a>

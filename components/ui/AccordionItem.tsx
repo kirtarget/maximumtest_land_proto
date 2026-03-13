@@ -8,11 +8,11 @@ export default function AccordionItem({ value, question, answer }: Props) {
   return (
     <Accordion.Item value={value} className="border-b border-border last:border-0 group">
       <Accordion.Header>
-        <Accordion.Trigger className="flex w-full items-center justify-between py-5 text-left font-semibold text-dark text-base md:text-lg hover:text-[#FD7E14] transition-colors gap-4">
+        <Accordion.Trigger className="flex w-full items-center justify-between py-5 text-left font-semibold text-dark text-base md:text-lg hover:text-orange transition-colors gap-4">
           <span>{question}</span>
           <span className="flex-shrink-0 w-7 h-7 rounded-full bg-light flex items-center justify-center">
             <Plus className="w-4 h-4 group-data-[state=open]:hidden" />
-            <Minus className="w-4 h-4 hidden group-data-[state=open]:block text-[#FD7E14]" />
+            <Minus className="w-4 h-4 hidden group-data-[state=open]:block text-orange" />
           </span>
         </Accordion.Trigger>
       </Accordion.Header>

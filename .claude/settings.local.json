@@ -7,7 +7,12 @@
       "Bash(npx create-next-app@latest maximum-prototype --typescript --tailwind --app --no-src-dir --no-import-alias --eslint)",
       "Bash(npm install:*)",
       "Bash(npm run:*)",
-      "WebFetch(domain:maximumtest.ru)"
+      "WebFetch(domain:maximumtest.ru)",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(echo \"=== $f ===\")",
+      "Read(//Users/kirillkartashev/code/maximum prototype/components/sections/**)",
+      "Bash(done)"
     ]
   }
 }

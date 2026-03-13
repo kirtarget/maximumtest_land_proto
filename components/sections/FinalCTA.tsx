@@ -2,7 +2,7 @@ import Button from '@/components/ui/Button'
 
 export default function FinalCTA() {
   return (
-    <section className="bg-[#FD7E14] py-16 md:py-24">
+    <section className="bg-orange py-16 md:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
           Начните подготовку сегодня

@@ -1,4 +1,4 @@
-import { ShieldCheck, FileText, HeadphonesIcon } from 'lucide-react'
+import { ShieldCheck, FileText, HeadphonesIcon, Building2 } from 'lucide-react'
 import Button from '@/components/ui/Button'
 
 const points = [
@@ -54,7 +54,9 @@ export default function Guarantee() {
 
             {/* FIPI badge */}
             <div className="bg-white/5 rounded-[20px] p-5 border border-white/10 flex items-center gap-4">
-              <div className="text-3xl">🏛️</div>
+              <div className="w-10 h-10 bg-orange/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Building2 className="w-5 h-5 text-orange" />
+              </div>
               <div>
                 <p className="font-semibold text-white">Одобрено ФИПИ</p>
                 <p className="text-white/60 text-sm">Наши материалы соответствуют официальным требованиям к ЕГЭ и ОГЭ</p>

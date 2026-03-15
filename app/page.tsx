@@ -7,6 +7,7 @@ import Mechanism from '@/components/sections/Mechanism'
 import Teachers from '@/components/sections/Teachers'
 import Results from '@/components/sections/Results'
 import ComparisonTable from '@/components/sections/ComparisonTable'
+import Pricing from '@/components/sections/Pricing'
 import OfflineCities from '@/components/sections/OfflineCities'
 import Guarantee from '@/components/sections/Guarantee'
 import Quiz from '@/components/sections/Quiz'
@@ -25,11 +26,12 @@ export default function Home() {
         <Teachers />
         <Results />
         <ComparisonTable />
+        <Pricing />
         <OfflineCities />
         <Guarantee />
         <Quiz />
-        <FAQ />
         <FinalCTA />
+        <FAQ />
       </main>
       <Footer />
     </>

@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Menu, X, Phone, ChevronDown } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Button from '@/components/ui/Button'
 
 const navLinks = [
@@ -59,25 +60,33 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {open && (
-        <div className="lg:hidden bg-white border-t border-border px-4 pb-4 flex flex-col gap-1">
-          {navLinks.map(l => (
-            <a key={l.href} href={l.href}
-              className="py-3 font-medium text-dark hover:text-orange transition-colors border-b border-border last:border-0"
-              onClick={() => setOpen(false)}>
-              {l.label}
-            </a>
-          ))}
-          <div className="pt-3 flex flex-col gap-3">
-            <a href="tel:88007072562" className="flex items-center gap-2 text-muted text-sm">
-              <Phone className="w-4 h-4" /> 8 (800) 707-25-62
-            </a>
-            <Button href="#quiz" label="navbar_mobile_cta" className="justify-center">
-              Начать подготовку
-            </Button>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.22, ease: 'easeInOut' }}
+            className="lg:hidden bg-white border-t border-border px-4 pb-4 flex flex-col gap-1 overflow-hidden"
+          >
+            {navLinks.map(l => (
+              <a key={l.href} href={l.href}
+                className="py-3 font-medium text-dark hover:text-orange transition-colors border-b border-border last:border-0"
+                onClick={() => setOpen(false)}>
+                {l.label}
+              </a>
+            ))}
+            <div className="pt-3 flex flex-col gap-3">
+              <a href="tel:88007072562" className="flex items-center gap-2 text-muted text-sm">
+                <Phone className="w-4 h-4" /> 8 (800) 707-25-62
+              </a>
+              <Button href="#quiz" label="navbar_mobile_cta" className="justify-center">
+                Начать подготовку
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

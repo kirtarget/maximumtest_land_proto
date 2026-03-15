@@ -1,10 +1,10 @@
 'use client'
 import { motion } from 'framer-motion'
-import Button from '@/components/ui/Button'
+import LeadForm from '@/components/ui/LeadForm'
 
 export default function Hero() {
   return (
-    <section className="bg-orange relative overflow-hidden">
+    <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #FD7E14 0%, #e06000 55%, #c04a00 100%)' }}>
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
       <div className="absolute bottom-0 left-1/3 w-[300px] h-[300px] bg-white/5 rounded-full translate-y-1/2 pointer-events-none" />
 
@@ -20,7 +20,7 @@ export default function Hero() {
               Гарантия результата в договоре
             </div>
 
-            <h1 className="text-[28px] sm:text-[38px] lg:text-[52px] font-bold text-white leading-[1.15] mb-5">
+            <h1 className="text-[32px] sm:text-[38px] lg:text-[52px] font-bold text-white leading-[1.15] mb-5">
               Школа, которая доводит до результата.{' '}
               <span className="underline decoration-white/50 decoration-4 underline-offset-4">
                 Гарантированно.
@@ -35,17 +35,7 @@ export default function Hero() {
               Подготовка становится понятным планом, а не хаосом и источником тревоги.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button href="#quiz" size="lg" variant="white" label="hero_primary" className="font-bold">
-                Узнать стоимость
-              </Button>
-              <Button
-                href="tel:88007072562" size="lg" label="hero_phone"
-                className="border-2 border-white/60 text-white hover:bg-white/10"
-              >
-                Позвонить бесплатно
-              </Button>
-            </div>
+            <LeadForm variant="dark" label="hero_form" />
 
             <div className="mt-7 flex flex-wrap gap-2">
               {['13 лет готовим', '450 000 учеников', '65 городов', 'Одобрено ФИПИ'].map(b => (

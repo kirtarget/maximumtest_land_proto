@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import ResultCard from '@/components/ui/ResultCard'
-import { Star } from 'lucide-react'
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const reviews = [
   { before: 'Сын жутко нервничал, места себе не находил. Мы не знали, что делать', after: 'Пошёл на экзамены с чистой и светлой головой. Тревога прошла совсем.', name: 'Анна, мама ученика', subject: 'Математика', source: '2ГИС Москва' },
@@ -15,15 +15,24 @@ const reviews = [
 export default function Results() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' })
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
+
+  const stopTimer = useCallback(() => {
+    if (timer.current) clearTimeout(timer.current)
+  }, [])
 
   useEffect(() => {
     if (!emblaApi) return
+    setScrollSnaps(emblaApi.scrollSnapList())
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap())
+    emblaApi.on('select', onSelect)
+
     const play = () => { timer.current = setTimeout(() => { emblaApi.scrollNext(); play() }, 4000) }
-    const stop = () => { if (timer.current) clearTimeout(timer.current) }
     play()
-    emblaApi.on('pointerDown', stop)
-    return () => stop()
-  }, [emblaApi])
+    emblaApi.on('pointerDown', stopTimer)
+    return () => stopTimer()
+  }, [emblaApi, stopTimer])
 
   return (
     <section id="results" className="bg-white py-16 md:py-24">
@@ -46,6 +55,37 @@ export default function Results() {
               <div key={i} className="flex-[0_0_90%] sm:flex-[0_0_55%] lg:flex-[0_0_38%]">
                 <ResultCard {...r} />
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex items-center justify-between mt-8">
+          <div className="flex gap-2">
+            <button
+              onClick={() => { stopTimer(); emblaApi?.scrollPrev() }}
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:text-orange hover:border-orange transition-colors"
+              aria-label="Предыдущий"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => { stopTimer(); emblaApi?.scrollNext() }}
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:text-orange hover:border-orange transition-colors"
+              aria-label="Следующий"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="flex gap-2 items-center">
+            {scrollSnaps.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { stopTimer(); emblaApi?.scrollTo(i) }}
+                className={`h-2 rounded-full transition-all duration-300 ${i === selectedIndex ? 'w-6 bg-orange' : 'w-2 bg-border hover:bg-muted'}`}
+                aria-label={`Слайд ${i + 1}`}
+              />
             ))}
           </div>
         </div>

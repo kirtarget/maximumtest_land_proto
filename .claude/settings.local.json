@@ -12,7 +12,10 @@
       "Bash(do)",
       "Bash(echo \"=== $f ===\")",
       "Read(//Users/kirillkartashev/code/maximum prototype/components/sections/**)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"education online school exam preparation landing page modern\" --design-system -p \"MAXIMUM Education\" -f markdown)",
+      "Read(//usr/**)",
+      "Bash(command -v python3)"
     ]
   }
 }

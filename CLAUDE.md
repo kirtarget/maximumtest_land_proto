@@ -6,6 +6,13 @@
 
 ---
 
+## Деплой
+- Автодеплой через GitHub: push в `main` → Vercel подхватывает автоматически
+- `vercel link` / `vercel --prod` не нужны — достаточно `git push`
+- Проект: https://github.com/kirtarget/maximumtest_land_proto
+
+---
+
 ## Стек
 - **Framework:** Next.js 14+ (App Router)
 - **Styles:** Tailwind CSS

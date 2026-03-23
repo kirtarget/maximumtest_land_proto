@@ -10,6 +10,7 @@ import ComparisonTable from '@/components/sections/ComparisonTable'
 import Pricing from '@/components/sections/Pricing'
 import OfflineCities from '@/components/sections/OfflineCities'
 import Guarantee from '@/components/sections/Guarantee'
+import FreeLesson from '@/components/sections/FreeLesson'
 import Quiz from '@/components/sections/Quiz'
 import FAQ from '@/components/sections/FAQ'
 import FinalCTA from '@/components/sections/FinalCTA'
@@ -29,6 +30,7 @@ export default function Home() {
         <Pricing />
         <OfflineCities />
         <Guarantee />
+        <FreeLesson />
         <Quiz />
         <FinalCTA />
         <FAQ />

@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудит maximumtest.ru — Яндекс Вебмастер 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+:root {
+  --bg: #0f1117; --surface: #1a1d27; --surface2: #252836;
+  --accent: #6c5ce7; --accent2: #00cec9; --danger: #ff6b6b;
+  --warning: #ffa502; --success: #2ed573; --text: #e8e8e8;
+  --text-muted: #8b8fa3; --border: #2d3042;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:1400px; margin:0 auto; padding:20px; }
+
+/* Header */
+.header { background:linear-gradient(135deg,#1a1d27 0%,#2d1b69 50%,#1a1d27 100%);
+  border-radius:20px; padding:40px; margin-bottom:30px; position:relative; overflow:hidden; }
+.header::before { content:''; position:absolute; top:-50%; right:-20%; width:400px; height:400px;
+  background:radial-gradient(circle,rgba(108,92,231,0.3),transparent); border-radius:50%; }
+.header h1 { font-size:2.5em; font-weight:800; background:linear-gradient(135deg,#fff,#a29bfe);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px; position:relative; }
+.header .subtitle { color:var(--text-muted); font-size:1.1em; position:relative; }
+.header .date { color:var(--accent2); font-weight:600; margin-top:5px; position:relative; }
+
+/* KPI Cards */
+.kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin-bottom:30px; }
+.kpi-card { background:var(--surface); border-radius:16px; padding:24px; border:1px solid var(--border);
+  transition:transform .2s, box-shadow .2s; cursor:default; }
+.kpi-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(108,92,231,0.15); }
+.kpi-label { color:var(--text-muted); font-size:0.85em; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+.kpi-value { font-size:2.2em; font-weight:800; }
+.kpi-change { font-size:0.9em; margin-top:4px; font-weight:600; }
+.kpi-change.positive { color:var(--success); }
+.kpi-change.negative { color:var(--danger); }
+.kpi-change.neutral { color:var(--warning); }
+
+/* Sections */
+.section { background:var(--surface); border-radius:16px; padding:30px; margin-bottom:24px;
+  border:1px solid var(--border); }
+.section-title { font-size:1.5em; font-weight:700; margin-bottom:20px; display:flex;
+  align-items:center; gap:10px; }
+.section-title .icon { width:40px; height:40px; border-radius:12px; display:flex;
+  align-items:center; justify-content:center; font-size:1.2em; }
+.section-title .icon.purple { background:rgba(108,92,231,0.15); color:var(--accent); }
+.section-title .icon.teal { background:rgba(0,206,201,0.15); color:var(--accent2); }
+.section-title .icon.red { background:rgba(255,107,107,0.15); color:var(--danger); }
+.section-title .icon.orange { background:rgba(255,165,2,0.15); color:var(--warning); }
+.section-title .icon.green { background:rgba(46,213,115,0.15); color:var(--success); }
+
+/* Tables */
+.data-table { width:100%; border-collapse:collapse; margin-top:15px; }
+.data-table th { text-align:left; padding:12px 16px; background:var(--surface2); color:var(--text-muted);
+  font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid var(--border); }
+.data-table td { padding:12px 16px; border-bottom:1px solid var(--border); }
+.data-table tr:hover td { background:rgba(108,92,231,0.05); }
+
+/* Badges */
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:0.8em; font-weight:600; }
+.badge.critical { background:rgba(255,107,107,0.15); color:var(--danger); }
+.badge.warning { background:rgba(255,165,2,0.15); color:var(--warning); }
+.badge.success { background:rgba(46,213,115,0.15); color:var(--success); }
+.badge.info { background:rgba(108,92,231,0.15); color:var(--accent); }
+
+/* Difficulty */
+.difficulty { display:flex; gap:3px; align-items:center; }
+.diff-dot { width:8px; height:8px; border-radius:50%; background:var(--border); }
+.diff-dot.filled.easy { background:var(--success); }
+.diff-dot.filled.medium { background:var(--warning); }
+.diff-dot.filled.hard { background:var(--danger); }
+
+/* Task Cards */
+.task-grid { display:grid; gap:16px; margin-top:15px; }
+.task-card { background:var(--surface2); border-radius:12px; padding:20px;
+  border-left:4px solid var(--accent); transition:transform .2s; }
+.task-card:hover { transform:translateX(4px); }
+.task-card.critical { border-left-color:var(--danger); }
+.task-card.warning { border-left-color:var(--warning); }
+.task-card.success { border-left-color:var(--success); }
+.task-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.task-title { font-weight:700; font-size:1.05em; }
+.task-desc { color:var(--text-muted); font-size:0.9em; margin-bottom:10px; }
+.task-meta { display:flex; gap:15px; flex-wrap:wrap; }
+.task-meta-item { font-size:0.8em; color:var(--text-muted); display:flex; align-items:center; gap:4px; }
+
+/* Chart containers */
+.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+.chart-box { background:var(--surface); border-radius:16px; padding:24px; border:1px solid var(--border); }
+.chart-box h3 { margin-bottom:15px; font-size:1.1em; }
+@media (max-width:900px) { .chart-row { grid-template-columns:1fr; } }
+
+/* Tabs */
+.tabs { display:flex; gap:4px; margin-bottom:20px; background:var(--surface2); border-radius:12px; padding:4px; }
+.tab { padding:10px 20px; border-radius:10px; cursor:pointer; font-weight:500; font-size:0.9em;
+  transition:all .2s; color:var(--text-muted); }
+.tab.active { background:var(--accent); color:#fff; }
+.tab:hover:not(.active) { background:rgba(108,92,231,0.1); color:var(--text); }
+.tab-content { display:none; }
+.tab-content.active { display:block; }
+
+/* Progress bars */
+.progress-bar { height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; margin-top:8px; }
+.progress-fill { height:100%; border-radius:4px; transition:width 1s ease; }
+
+/* Collapsible */
+.collapsible-header { cursor:pointer; display:flex; justify-content:space-between; align-items:center;
+  padding:15px 0; border-bottom:1px solid var(--border); }
+.collapsible-header:hover { color:var(--accent); }
+.collapsible-content { max-height:0; overflow:hidden; transition:max-height .3s ease; }
+.collapsible-content.open { max-height:2000px; }
+
+/* Tooltip */
+.tooltip { position:relative; cursor:help; }
+.tooltip::after { content:attr(data-tip); position:absolute; bottom:calc(100% + 8px); left:50%;
+  transform:translateX(-50%); background:var(--surface2); color:var(--text); padding:8px 12px;
+  border-radius:8px; font-size:0.8em; white-space:nowrap; opacity:0; pointer-events:none;
+  transition:opacity .2s; border:1px solid var(--border); }
+.tooltip:hover::after { opacity:1; }
+
+/* Comparison */
+.comparison-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.comparison-card { background:var(--surface2); border-radius:12px; padding:20px; }
+.comparison-card h4 { color:var(--text-muted); font-size:0.85em; margin-bottom:10px; }
+.comparison-value { font-size:1.8em; font-weight:800; }
+.comparison-sub { font-size:0.85em; color:var(--text-muted); margin-top:4px; }
+@media (max-width:600px) { .comparison-grid { grid-template-columns:1fr; } }
+
+.nav-sticky { position:sticky; top:0; background:var(--bg); z-index:100; padding:10px 0; margin-bottom:20px; }
+.nav-links { display:flex; gap:8px; flex-wrap:wrap; }
+.nav-links a { color:var(--text-muted); text-decoration:none; font-size:0.85em; padding:6px 14px;
+  border-radius:8px; background:var(--surface); transition:all .2s; border:1px solid var(--border); }
+.nav-links a:hover { color:var(--text); background:var(--surface2); border-color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="container" id="app">
+<!-- HEADER -->
+<div class="header">
+  <h1>🔍 Полный SEO-аудит maximumtest.ru</h1>
+  <div class="subtitle">Комплексный анализ данных Яндекс Вебмастера с рекомендациями</div>
+  <div class="date">📅 Дата аудита: 23 марта 2026 | Период анализа: февраль-март 2026 vs прошлый год</div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-sticky">
+  <div class="nav-links">
+    <a href="#kpi">📊 KPI</a>
+    <a href="#indexing">📑 Индексация</a>
+    <a href="#traffic">🔎 Трафик</a>
+    <a href="#queries">💬 Запросы</a>
+    <a href="#quality">⭐ Качество</a>
+    <a href="#links">🔗 Ссылки</a>
+    <a href="#issues">⚠️ Проблемы</a>
+    <a href="#tasks">📋 Задачи</a>
+    <a href="#forecast">📈 Прогноз</a>
+  </div>
+</div>
+
+<!-- KPI SECTION -->
+<div id="kpi">
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">ИКС (Индекс качества сайта)</div>
+      <div class="kpi-value" style="color:var(--accent)">8 100</div>
+      <div class="kpi-change positive">▲ +25.58% за год</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Клики в поиске (30 дн.)</div>
+      <div class="kpi-value" style="color:var(--accent2)">182 244</div>
+      <div class="kpi-change positive">▲ в 11.5 раз (было 15 808)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Показы (30 дн.)</div>
+      <div class="kpi-value" style="color:var(--warning)">11.74 млн</div>
+      <div class="kpi-change positive">▲ в 3.57 раз (было 3.29 млн)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CTR</div>
+      <div class="kpi-value" style="color:var(--success)">1.55%</div>
+      <div class="kpi-change positive">▲ +573% (было 0.23%)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Страниц в поиске</div>
+      <div class="kpi-value">1 991</div>
+      <div class="kpi-change positive">▲ +1% за месяц</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Внешние ссылки</div>
+      <div class="kpi-value" style="color:var(--danger)">11 835</div>
+      <div class="kpi-change negative">▼ -34% (было ~18 000)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Дублей title/description</div>
+      <div class="kpi-value" style="color:var(--danger)">305</div>
+      <div class="kpi-change negative">17% всех страниц</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Исключённые страницы</div>
+      <div class="kpi-value" style="color:var(--warning)">84 935</div>
+      <div class="kpi-change neutral">82 420 редиректов</div>
+    </div>
+  </div>
+</div>
+
+<!-- INDEXING SECTION -->
+<div id="indexing" class="section">
+  <div class="section-title">
+    <div class="icon purple">📑</div>
+    Индексация и техническое состояние
+  </div>
+  
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>Распределение исключённых страниц</h3>
+      <div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Редиректы</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:#ff6b6b; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#ff6b6b">82 420</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Статус неизвестен</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:1.856345547197282%; background:#ffa502; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#ffa502">1 530</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Noindex</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:0.3736957049259888%; background:#a29bfe; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#a29bfe">308</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Неканонические</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:0.35913613200679445%; background:#00cec9; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#00cec9">296</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Ошибки HTTP</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:0.2778451832079592%; background:#fd79a8; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#fd79a8">229</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Дубли</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:0.14316913370541132%; background:#6c5ce7; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#6c5ce7">118</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">Clean-Param</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:0.04125212327105072%; background:#74b9ff; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#74b9ff">34</div>
+    </div>
+  
+</div>
+    </div>
+    <div class="chart-box">
+      <h3>Статусы обхода робота</h3>
+      <div>
+  <div style="display:flex; gap:20px; justify-content:center; margin-bottom:20px">
+    <div style="text-align:center">
+      <div style="width:80px;height:80px;border-radius:50%;background:conic-gradient(#2ed573 0% 67.7%,#ffa502 67.7% 97.3%,#ff6b6b 97.3% 100%);margin:0 auto 10px;display:flex;align-items:center;justify-content:center">
+        <div style="width:50px;height:50px;border-radius:50%;background:#1a1d27;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9em">226</div>
+      </div>
+      <div style="font-size:0.85em;color:#8b8fa3">Всего запросов</div>
+    </div>
+  </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">2XX (Успех)</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:#2ed573; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#2ed573">153</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">3XX (Редирект)</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:43.790849673202615%; background:#ffa502; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#ffa502">67</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">4XX (Ошибки)</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:3.9215686274509802%; background:#ff6b6b; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#ff6b6b">6</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">5XX (Сервер)</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:0%; background:#ff4757; border-radius:4px; transition:width 1s"></div>
+      </div>
+      <div style="width:60px; font-size:0.85em; font-weight:600; color:#ff4757">0</div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+
+  <h3 style="margin:20px 0 15px">Ключевые показатели индексации</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Показатель</th><th>Текущее значение</th><th>Статус</th><th>Комментарий</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Страницы в поиске</td><td><strong>1 991</strong></td><td><span class="badge success">Норма</span></td><td>Рост +1% за месяц</td></tr>
+      <tr><td>Sitemap URL</td><td><strong>1 493</strong></td><td><span class="badge success">OK</span></td><td>Обновлён 20.03.2026</td></tr>
+      <tr><td>Исключённые: Редиректы</td><td><strong>82 420</strong></td><td><span class="badge critical">Критично</span></td><td>Основная масса исключённых страниц</td></tr>
+      <tr><td>Исключённые: Ошибки HTTP</td><td><strong>229</strong></td><td><span class="badge warning">Внимание</span></td><td>404, 308, 301 ошибки</td></tr>
+      <tr><td>Исключённые: Неканонические</td><td><strong>296</strong></td><td><span class="badge warning">Внимание</span></td><td>URL с параметрами Метрики и рекламы</td></tr>
+      <tr><td>Исключённые: Дубли</td><td><strong>118</strong></td><td><span class="badge warning">Внимание</span></td><td>Дублирующиеся страницы</td></tr>
+      <tr><td>Исключённые: Noindex</td><td><strong>308</strong></td><td><span class="badge info">Инфо</span></td><td>Страницы закрыты от индексации</td></tr>
+      <tr><td>robots.txt</td><td><strong>0 ошибок</strong></td><td><span class="badge success">OK</span></td><td>Clean-param настроен</td></tr>
+      <tr><td>Дублирующихся title</td><td><strong>305 (17%)</strong></td><td><span class="badge critical">Критично</span></td><td>280 страниц с одинаковым заголовком</td></tr>
+      <tr><td>Дублирующихся description</td><td><strong>305 (17%)</strong></td><td><span class="badge critical">Критично</span></td><td>Идентичны title — системная проблема</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- TRAFFIC SECTION -->
+<div id="traffic" class="section">
+  <div class="section-title">
+    <div class="icon teal">🔎</div>
+    Поисковый трафик и динамика
+  </div>
+  
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>Клики в поиске: текущий vs прошлый период</h3>
+      <div>
+  <div style="display:flex; gap:15px; margin-bottom:15px; font-size:0.85em">
+    <span><span style="display:inline-block;width:12px;height:12px;background:rgba(139,143,163,0.5);border-radius:2px"></span> Прошлый год</span>
+    <span><span style="display:inline-block;width:12px;height:12px;background:#6c5ce7;border-radius:2px"></span> Текущий период</span>
+  </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">Все запросы</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:8.674085292245561%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:100%; background:#6c5ce7; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 15 808</span>
+        <span style="color:#6c5ce7">Стало: 182 244</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">ЕГЭ (по вхождению)</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.17613748600776982%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.9783586839621607%; background:#00cec9; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 321</span>
+        <span style="color:#00cec9">Стало: 1 783</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">ЕГЭ</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.0828559513619104%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:1.3311823708873818%; background:#2ed573; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 151</span>
+        <span style="color:#2ed573">Стало: 2 426</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">ОГЭ</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.13443515287197383%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.08889181536840719%; background:#ff6b6b; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 245</span>
+        <span style="color:#ff6b6b">Стало: 162</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">Профориентация</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.3253879414411448%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:0.4356796382871315%; background:#ffa502; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 593</span>
+        <span style="color:#ffa502">Стало: 794</span>
+      </div>
+    </div>
+  
+</div>
+    </div>
+    <div class="chart-box">
+      <h3>Динамика CTR по группам</h3>
+      <div>
+  <div style="display:flex; gap:15px; margin-bottom:15px; font-size:0.85em">
+    <span><span style="display:inline-block;width:12px;height:12px;background:rgba(139,143,163,0.5);border-radius:2px"></span> CTR прошлый год</span>
+    <span><span style="display:inline-block;width:12px;height:12px;background:#00cec9;border-radius:2px"></span> CTR текущий</span>
+  </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">Все</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:1.1004784688995217%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:7.416267942583733%; background:#00cec9; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 0.23%</span>
+        <span style="color:#00cec9">Стало: 1.55%</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">ЕГЭ (по вхожд.)</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:3.349282296650718%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:10.669856459330145%; background:#00cec9; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 0.70%</span>
+        <span style="color:#00cec9">Стало: 2.23%</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">ЕГЭ</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:18.61244019138756%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:33.63636363636364%; background:#00cec9; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 3.89%</span>
+        <span style="color:#00cec9">Стало: 7.03%</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">ОГЭ</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:6.9856459330143545%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:8.229665071770336%; background:#00cec9; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 1.46%</span>
+        <span style="color:#00cec9">Стало: 1.72%</span>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.85em; color:#8b8fa3; margin-bottom:4px">Профориентация</div>
+      <div style="display:flex; gap:4px">
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:68.99521531100478%; background:rgba(139,143,163,0.5); border-radius:4px"></div>
+        </div>
+        <div style="flex:1; background:#252836; border-radius:4px; height:20px; overflow:hidden">
+          <div style="height:100%; width:100%; background:#00cec9; border-radius:4px"></div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.8em; color:#8b8fa3; margin-top:2px">
+        <span>Было: 14.42%</span>
+        <span style="color:#00cec9">Стало: 20.90%</span>
+      </div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid" style="margin-top:20px">
+    <div class="comparison-card">
+      <h4>КЛИКИ В ПОИСКЕ (5 315 за неделю)</h4>
+      <div class="comparison-value" style="color:var(--success)">+38.3%</div>
+      <div class="comparison-sub">Рост за последний месяц</div>
+    </div>
+    <div class="comparison-card">
+      <h4>ПОКАЗЫ (11.74 МЛН за 30 дн.)</h4>
+      <div class="comparison-value" style="color:var(--success)">+256%</div>
+      <div class="comparison-sub">Было 3.29 млн год назад</div>
+    </div>
+    <div class="comparison-card">
+      <h4>CTR ОБЩИЙ</h4>
+      <div class="comparison-value" style="color:var(--success)">1.55%</div>
+      <div class="comparison-sub">Было 0.23% — рост в 6.7 раза</div>
+    </div>
+    <div class="comparison-card">
+      <h4>СРЕДНЕЕ ЧИСЛО КЛИКОВ/ДЕНЬ</h4>
+      <div class="comparison-value" style="color:var(--accent2)">~6 075</div>
+      <div class="comparison-sub">Было ~527 — рост в 11.5 раз</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUERIES SECTION -->
+<div id="queries" class="section">
+  <div class="section-title">
+    <div class="icon orange">💬</div>
+    Поисковые запросы и группы
+  </div>
+  
+  <div class="tabs" id="queryTabs">
+    <div class="tab" onclick="switchTab('queryTabs','queryContent',0)">Топ запросы</div>
+    <div class="tab" onclick="switchTab('queryTabs','queryContent',1)">Группы запросов</div>
+    <div class="tab active" onclick="switchTab('queryTabs','queryContent',2)">Возможности роста</div>
+  </div>
+  
+  <div id="queryContent">
+    <div class="tab-content">
+      <table class="data-table">
+        <thead><tr><th>Запрос</th><th>Показы</th><th>Клики</th><th>CTR</th><th>Тренд</th></tr></thead>
+        <tbody>
+          <tr><td><strong>подготовка к егэ</strong></td><td>20 464</td><td>38</td><td>0.18%</td><td><span class="badge warning">⚠ Низкий CTR</span></td></tr>
+          <tr><td><strong>что такое биссектриса</strong></td><td>19 453</td><td>68</td><td>0.34%</td><td><span class="badge info">Информационный</span></td></tr>
+          <tr><td><strong>тригонометрический круг</strong></td><td>19 200</td><td>19</td><td>0.09%</td><td><span class="badge warning">⚠ Низкий CTR</span></td></tr>
+          <tr><td><strong>максимум</strong></td><td>13 273</td><td>8 156</td><td>61.44%</td><td><span class="badge success">✅ Брендовый</span></td></tr>
+          <tr><td><strong>максимум эдьюкейшн</strong></td><td>6 393</td><td>2 303</td><td>36.0%</td><td><span class="badge success">✅ Брендовый</span></td></tr>
+          <tr><td><strong>maximum education</strong></td><td>2 664</td><td>809</td><td>30.4%</td><td><span class="badge success">✅ Брендовый</span></td></tr>
+          <tr><td><strong>соответственные углы</strong></td><td>10 405</td><td>147</td><td>1.41%</td><td><span class="badge info">Потенциал роста</span></td></tr>
+          <tr><td><strong>теорема фалеса</strong></td><td>16 317</td><td>33</td><td>0.20%</td><td><span class="badge warning">⚠ Низкий CTR</span></td></tr>
+          <tr><td><strong>наука и образование</strong></td><td>2 380</td><td>215</td><td>9.03%</td><td><span class="badge success">Хорошо</span></td></tr>
+          <tr><td><strong>функции семьи</strong></td><td>12 156</td><td>12</td><td>0.09%</td><td><span class="badge critical">Нужна оптимизация</span></td></tr>
+        </tbody>
+      </table>
+      <p style="color:var(--text-muted); margin-top:15px; font-size:0.9em">Всего уникальных запросов: <strong>2 979</strong></p>
+    </div>
+    
+    <div class="tab-content">
+      <table class="data-table">
+        <thead><tr><th>Группа</th><th>Показы</th><th>Клики</th><th>CTR</th><th>Динамика показов</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Все запросы</strong></td><td>11.74 млн</td><td>182 244</td><td>1.55%</td><td><span class="kpi-change positive" style="font-size:0.85em">▲ +256% (было 3.29 млн)</span></td></tr>
+          <tr><td><strong>ЕГЭ (по вхождению)</strong></td><td>79 800</td><td>1 783</td><td>2.23%</td><td><span class="kpi-change positive" style="font-size:0.85em">▲ +38% (было 57 763)</span></td></tr>
+          <tr><td><strong>ЕГЭ</strong></td><td>34 506</td><td>2 426</td><td>7.03%</td><td><span class="kpi-change negative" style="font-size:0.85em">▼ -10% (было 38 149)</span></td></tr>
+          <tr><td><strong>ОГЭ</strong></td><td>9 377</td><td>162</td><td>1.72%</td><td><span class="kpi-change positive" style="font-size:0.85em">▲ +179% (было 3 366)</span></td></tr>
+          <tr><td><strong>Профориентация</strong></td><td>3 798</td><td>794</td><td>20.9%</td><td><span class="kpi-change positive" style="font-size:0.85em">▲ +444% (было 698)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="tab-content active">
+      <h3 style="margin-bottom:15px;color:var(--accent2)">🎯 Запросы с высоким потенциалом роста</h3>
+      <p style="margin-bottom:15px; color:var(--text-muted)">Запросы с большим количеством показов, но низким CTR. Оптимизация сниппетов и контента может дать быстрый результат.</p>
+      <table class="data-table">
+        <thead><tr><th>Запрос</th><th>Показы</th><th>Текущий CTR</th><th>Потенциал кликов</th><th>Приоритет</th></tr></thead>
+        <tbody>
+          <tr><td>подготовка к егэ</td><td>20 464</td><td>0.18%</td><td>+600 кликов при CTR 3%</td><td><span class="badge critical">Высокий</span></td></tr>
+          <tr><td>тригонометрический круг</td><td>19 200</td><td>0.09%</td><td>+570 кликов при CTR 3%</td><td><span class="badge critical">Высокий</span></td></tr>
+          <tr><td>биссектриса</td><td>19 066</td><td>0.11%</td><td>+550 кликов при CTR 3%</td><td><span class="badge critical">Высокий</span></td></tr>
+          <tr><td>теорема фалеса</td><td>16 317</td><td>0.20%</td><td>+470 кликов при CTR 3%</td><td><span class="badge warning">Средний</span></td></tr>
+          <tr><td>функции семьи</td><td>12 156</td><td>0.09%</td><td>+360 кликов при CTR 3%</td><td><span class="badge warning">Средний</span></td></tr>
+          <tr><td>что такое синонимы</td><td>12 939</td><td>0.04%</td><td>+380 кликов при CTR 3%</td><td><span class="badge warning">Средний</span></td></tr>
+          <tr><td>митоз</td><td>12 344</td><td>0.21%</td><td>+350 кликов при CTR 3%</td><td><span class="badge info">Умеренный</span></td></tr>
+        </tbody>
+      </table>
+      <div style="background:var(--surface2); border-radius:12px; padding:20px; margin-top:20px;">
+        <strong style="color:var(--accent2)">💡 Суммарный потенциал:</strong> оптимизация топ-7 запросов может дать <strong style="color:var(--success)">+3 280 дополнительных кликов в месяц</strong> при достижении CTR 3%.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUALITY SECTION -->
+<div id="quality" class="section">
+  <div class="section-title">
+    <div class="icon green">⭐</div>
+    Показатели качества и конкуренты
+  </div>
+  
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>ИКС — сравнение с конкурентами</h3>
+      <div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">foxford.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">19 400</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">skyeng.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:78.8659793814433%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">15 300</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">skillbox.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:67.5257731958763%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">13 100</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">skysmart.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:66.49484536082474%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">12 900</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">maximumtest.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:41.75257731958763%; background:#6c5ce7; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#6c5ce7">8 100 ⭐</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">4ege.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:41.49484536082475%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">8 050</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">netology.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:40.72164948453608%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">7 900</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">algoritmika.org</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:36.08247422680412%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">7 000</div>
+    </div>
+  
+</div>
+    </div>
+    <div class="chart-box">
+      <h3>Отзывы — сравнение</h3>
+      <div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">tetrika-school</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">1 176</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">skysmart.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:85.03401360544217%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">1 000+</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">skyeng.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:85.03401360544217%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">1 000+</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">foxford.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:85.03401360544217%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">1 000+</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">skillbox.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:72.10884353741497%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">848</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">netology.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:42.3469387755102%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">498</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">algoritmika.org</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:37.67006802721088%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">443</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">maximumtest.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:21.93877551020408%; background:#ffa502; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#ffa502">258 ⚠️</div>
+    </div>
+  
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
+      <div style="width:140px; font-size:0.85em; color:#8b8fa3; text-align:right; flex-shrink:0">4ege.ru</div>
+      <div style="flex:1; background:#252836; border-radius:4px; height:24px; overflow:hidden; position:relative">
+        <div style="height:100%; width:20.578231292517007%; background:#8b8fa3; border-radius:4px;"></div>
+      </div>
+      <div style="width:80px; font-size:0.85em; font-weight:600; color:#8b8fa3">242</div>
+    </div>
+  
+</div>
+    </div>
+  </div>
+
+  <table class="data-table" style="margin-top:20px">
+    <thead><tr><th>Сайт</th><th>ИКС</th><th>Динамика</th><th>Отзывы</th><th>Рейтинг</th></tr></thead>
+    <tbody>
+      <tr><td><strong>foxford.ru</strong></td><td style="color:var(--accent2)">19 400</td><td>—</td><td>1 000+</td><td>—</td></tr>
+      <tr><td><strong>skyeng.ru</strong></td><td>15 300</td><td>+10.86%</td><td>1 000+</td><td>—</td></tr>
+      <tr><td><strong>skillbox.ru</strong></td><td>13 100</td><td>+25.96%</td><td>848</td><td>—</td></tr>
+      <tr><td><strong>skysmart.ru</strong></td><td>12 900</td><td>+37.96%</td><td>1 000+</td><td>—</td></tr>
+      <tr><td><strong>tetrika-school.ru</strong></td><td>8 000</td><td>+75.82%</td><td>1 176</td><td>4.2</td></tr>
+      <tr style="background:rgba(108,92,231,0.1)"><td><strong>⭐ maximumtest.ru</strong></td><td style="color:var(--accent);font-weight:800">8 100</td><td style="color:var(--success)">+25.58%</td><td style="color:var(--warning)">258</td><td style="color:var(--warning)">4.0 / 4.8</td></tr>
+      <tr><td><strong>4ege.ru</strong></td><td>8 050</td><td>+45.04%</td><td>242</td><td>—</td></tr>
+      <tr><td><strong>algoritmika.org</strong></td><td>7 000</td><td>+38.61%</td><td>443</td><td>4.3</td></tr>
+      <tr><td><strong>netology.ru</strong></td><td>7 900</td><td>+12.05%</td><td>498</td><td>—</td></tr>
+    </tbody>
+  </table>
+  
+  <div style="background:var(--surface2); border-radius:12px; padding:20px; margin-top:20px;">
+    <strong style="color:var(--warning)">⚠️ Ключевой insight:</strong> maximumtest.ru на 4-м месте по количеству отзывов среди конкурентов (179 на Картах). Tetrika-school.ru с близким ИКС (8 000) имеет <strong>1 176 отзывов</strong> — в 6.5 раз больше. Активная работа с отзывами может значительно улучшить позиции.
+  </div>
+</div>
+
+<!-- LINKS SECTION -->
+<div id="links" class="section">
+  <div class="section-title">
+    <div class="icon purple">🔗</div>
+    Ссылочный профиль
+  </div>
+  
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>Динамика внешних ссылок</h3>
+      <div>
+  <div style="display:flex; align-items:end; gap:4px; height:150px; margin-bottom:10px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">18.0k</div><div style="width:100%;height:100%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Июн</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">17.5k</div><div style="width:100%;height:97.22222222222221%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Июл</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">16.8k</div><div style="width:100%;height:93.33333333333333%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Авг</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">16.2k</div><div style="width:100%;height:90%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Сен</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">15.5k</div><div style="width:100%;height:86.11111111111111%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Окт</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">14.8k</div><div style="width:100%;height:82.22222222222221%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Ноя</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">14.0k</div><div style="width:100%;height:77.77777777777779%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Дек</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">13.2k</div><div style="width:100%;height:73.33333333333333%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Янв</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">12.5k</div><div style="width:100%;height:69.44444444444444%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Фев</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.7em;color:#8b8fa3">11.8k</div><div style="width:100%;height:65.75%;background:linear-gradient(180deg,#ff6b6b,#ff6b6b80);border-radius:4px 4px 0 0"></div><div style="font-size:0.7em;color:#8b8fa3">Мар</div></div>
+  </div>
+  <div style="text-align:center; color:#ff6b6b; font-weight:600; font-size:0.9em">📉 Тренд: снижение с 18 000 до 11 835 (-34%)</div>
+</div>
+    </div>
+    <div class="chart-box">
+      <h3>Структура сниппетов</h3>
+      <div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>⚠️ Title/Description</span>
+        <span style="color:#8b8fa3">60% / 100%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:60%; background:#ffa502; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>✅ Фавиконка</span>
+        <span style="color:#8b8fa3">100% / 100%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:100%; background:#2ed573; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>✅ Breadcrumbs</span>
+        <span style="color:#8b8fa3">100% / 100%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:100%; background:#2ed573; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>✅ Быстрые ссылки</span>
+        <span style="color:#8b8fa3">100% / 100%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:100%; background:#2ed573; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>✅ Телефон</span>
+        <span style="color:#8b8fa3">100% / 100%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:100%; background:#2ed573; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>❌ Онлайн-обр. фид</span>
+        <span style="color:#8b8fa3">0% / 100%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:100%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:0%; background:#ff6b6b; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:10px">
+      <div style="display:flex; justify-content:space-between; font-size:0.85em; margin-bottom:4px">
+        <span>⚠️ Отзывы</span>
+        <span style="color:#8b8fa3">30% / 80%</span>
+      </div>
+      <div style="height:8px; background:#252836; border-radius:4px; overflow:hidden; position:relative">
+        <div style="height:100%; width:80%; background:rgba(0,206,201,0.2); border-radius:4px; position:absolute"></div>
+        <div style="height:100%; width:30%; background:#ffa502; border-radius:4px; position:relative; z-index:1"></div>
+      </div>
+    </div>
+  
+  <div style="display:flex; gap:15px; font-size:0.8em; color:#8b8fa3; margin-top:15px">
+    <span>█ Текущее использование</span>
+    <span style="opacity:0.3">█ Целевое</span>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <div class="comparison-grid" style="margin-top:20px">
+    <div class="comparison-card">
+      <h4>ВСЕГО ВНЕШНИХ ССЫЛОК</h4>
+      <div class="comparison-value" style="color:var(--danger)">11 835</div>
+      <div class="comparison-sub">Снижение с ~18 000 за полгода (-34%)</div>
+    </div>
+    <div class="comparison-card">
+      <h4>ССЫЛАЮЩИХСЯ САЙТОВ</h4>
+      <div class="comparison-value" style="color:var(--warning)">1 922</div>
+      <div class="comparison-sub">Стабильный рост</div>
+    </div>
+  </div>
+  
+  <h3 style="margin:20px 0 15px">Использование сниппетов</h3>
+  <table class="data-table">
+    <thead><tr><th>Элемент сниппета</th><th>Статус</th><th>Рекомендация</th></tr></thead>
+    <tbody>
+      <tr><td>Заголовок и описание</td><td><span class="badge success">✅ Активно</span></td><td>Исправить дубли (305 шт.)</td></tr>
+      <tr><td>Фавиконка</td><td><span class="badge success">✅ Активно</span></td><td>Без замечаний</td></tr>
+      <tr><td>Навигационная цепочка (BreadcrumbList)</td><td><span class="badge success">✅ Активно</span></td><td>Без замечаний</td></tr>
+      <tr><td>Быстрые ссылки</td><td><span class="badge success">✅ Активно</span></td><td>Без замечаний</td></tr>
+      <tr><td>Телефон</td><td><span class="badge success">✅ Активно</span></td><td>Без замечаний</td></tr>
+      <tr><td>Онлайн-образование (фид)</td><td><span class="badge critical">❌ Не активно</span></td><td>Загрузить фид курсов</td></tr>
+      <tr><td>Рецепты</td><td><span class="badge info">— Не применимо</span></td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ISSUES SECTION -->
+<div id="issues" class="section">
+  <div class="section-title">
+    <div class="icon red">⚠️</div>
+    Выявленные проблемы и их влияние
+  </div>
+  
+  <div class="task-grid">
+    <div class="task-card critical">
+      <div class="task-header">
+        <div class="task-title">🔴 82 420 страниц-редиректов в индексе</div>
+        <span class="badge critical">Критично</span>
+      </div>
+      <div class="task-desc">Огромное количество исключённых страниц с редиректами. Это создаёт нагрузку на краулинговый бюджет и снижает эффективность индексации важных страниц.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Высокое</div>
+        <div class="task-meta-item">🔧 Область: Технический SEO</div>
+      </div>
+    </div>
+    
+    <div class="task-card critical">
+      <div class="task-header">
+        <div class="task-title">🔴 305 дублей title и description (17%)</div>
+        <span class="badge critical">Критично</span>
+      </div>
+      <div class="task-desc">280 страниц используют одинаковый заголовок «Образовательный центр Maximum Education, онлайн школа подготовки к экзаменам». Это критически влияет на ранжирование и CTR.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Высокое</div>
+        <div class="task-meta-item">🔧 Область: On-page SEO</div>
+      </div>
+    </div>
+    
+    <div class="task-card critical">
+      <div class="task-header">
+        <div class="task-title">🔴 Сайт не оптимизирован для мобильных</div>
+        <span class="badge critical">Критично</span>
+      </div>
+      <div class="task-desc">Яндекс выявил, что сайт не адаптирован для мобильных устройств. Это один из ключевых факторов ранжирования в 2026 году.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Критическое</div>
+        <div class="task-meta-item">🔧 Область: UX/Разработка</div>
+      </div>
+    </div>
+    
+    <div class="task-card warning">
+      <div class="task-header">
+        <div class="task-title">🟡 Снижение ссылочной массы на 34%</div>
+        <span class="badge warning">Внимание</span>
+      </div>
+      <div class="task-desc">За последние 6 месяцев количество внешних ссылок снизилось с ~18 000 до 11 835. Это может привести к снижению авторитетности сайта.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Среднее</div>
+        <div class="task-meta-item">🔧 Область: Outreach/PR</div>
+      </div>
+    </div>
+    
+    <div class="task-card warning">
+      <div class="task-header">
+        <div class="task-title">🟡 Мало отзывов (4-е место среди конкурентов)</div>
+        <span class="badge warning">Внимание</span>
+      </div>
+      <div class="task-desc">179 отзывов на Картах vs 1 176 у tetrika-school.ru. Рейтинг 4.0 — ниже, чем у большинства конкурентов. 1 непрочитанный отзыв требует ответа.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Среднее</div>
+        <div class="task-meta-item">🔧 Область: Маркетинг/Репутация</div>
+      </div>
+    </div>
+    
+    <div class="task-card warning">
+      <div class="task-header">
+        <div class="task-title">🟡 296 неканонических URL в индексе</div>
+        <span class="badge warning">Внимание</span>
+      </div>
+      <div class="task-desc">URL с параметрами Метрики и рекламных систем попадают в индекс как неканонические. Необходимо настроить canonical и Clean-Param шире.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Умеренное</div>
+        <div class="task-meta-item">🔧 Область: Технический SEO</div>
+      </div>
+    </div>
+    
+    <div class="task-card">
+      <div class="task-header">
+        <div class="task-title">🔵 229 страниц с ошибками HTTP</div>
+        <span class="badge info">Инфо</span>
+      </div>
+      <div class="task-desc">Страницы возвращают 404, 308 и другие ошибки. Включая /forgot-password (404), /article/* (404), /new-year-box (404).</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Низкое</div>
+        <div class="task-meta-item">🔧 Область: Контент/Разработка</div>
+      </div>
+    </div>
+    
+    <div class="task-card">
+      <div class="task-header">
+        <div class="task-title">🔵 Фид «Онлайн-образование» не загружен</div>
+        <span class="badge info">Возможность</span>
+      </div>
+      <div class="task-desc">В сниппетах не используется фид для Онлайн-образования. Загрузка фида курсов может улучшить представление в выдаче.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Среднее</div>
+        <div class="task-meta-item">🔧 Область: SEO/Контент</div>
+      </div>
+    </div>
+    
+    <div class="task-card">
+      <div class="task-header">
+        <div class="task-title">🔵 В поиске найдены поддомены</div>
+        <span class="badge info">Инфо</span>
+      </div>
+      <div class="task-desc">С 2019 года в результатах поиска присутствуют поддомены сайта. Рекомендуется проверить и консолидировать.</div>
+      <div class="task-meta">
+        <div class="task-meta-item">📊 Влияние: Низкое</div>
+        <div class="task-meta-item">🔧 Область: Технический SEO</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TASKS SECTION -->
+<div id="tasks" class="section">
+  <div class="section-title">
+    <div class="icon teal">📋</div>
+    План действий с оценкой сложности
+  </div>
+  
+  <p style="color:var(--text-muted); margin-bottom:20px">Задачи отсортированы по приоритету. Сложность оценена по 5-балльной шкале: время, ресурсы, экспертиза.</p>
+  
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Задача</th>
+        <th>Приоритет</th>
+        <th>Сложность</th>
+        <th>Оценка времени</th>
+        <th>Ожидаемый результат</th>
+        <th>Рекомендация</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Исправить дубли title и description</strong></td>
+        <td><span class="badge critical">Критический</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">3/5</small>
+        </td>
+        <td>2-3 недели</td>
+        <td>+15-25% CTR на исправленных страницах</td>
+        <td>Создать уникальные title и description для 280+ страниц. Автоматизировать через шаблоны с динамическими переменными (город, предмет, класс).</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Адаптация под мобильные</strong></td>
+        <td><span class="badge critical">Критический</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+          </div>
+          <small style="color:var(--text-muted)">5/5</small>
+        </td>
+        <td>1-3 месяца</td>
+        <td>+30-50% мобильного трафика</td>
+        <td>Полный редизайн с mobile-first подходом. Проверить через Яндекс.Инструменты мобильную оптимизацию. Использовать адаптивную вёрстку.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Разобрать 82 420 редиректов</strong></td>
+        <td><span class="badge critical">Критический</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">4/5</small>
+        </td>
+        <td>2-4 недели</td>
+        <td>Улучшение краулингового бюджета на 30%+</td>
+        <td>Проанализировать цепочки редиректов, устранить двойные перенаправления, обновить внутренние ссылки на финальные URL. Удалить ненужные старые URL из sitemap.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Оптимизация CTR для топ-запросов</strong></td>
+        <td><span class="badge warning">Высокий</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">2/5</small>
+        </td>
+        <td>1-2 недели</td>
+        <td>+3 280 кликов/мес (при CTR 3%)</td>
+        <td>Оптимизировать сниппеты для запросов с большими показами и низким CTR: «подготовка к егэ», «тригонометрический круг», «биссектриса». Улучшить заголовки и мета-описания.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Загрузить фид «Онлайн-образование»</strong></td>
+        <td><span class="badge warning">Высокий</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">3/5</small>
+        </td>
+        <td>1-2 недели</td>
+        <td>Расширенные сниппеты в поиске</td>
+        <td>Создать YML/XML-фид с курсами и загрузить в Вебмастер. Включить название, описание, цену, рейтинг. Это даст расширенное представление в выдаче.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Работа с отзывами</strong></td>
+        <td><span class="badge warning">Высокий</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled easy"></div>
+            <div class="diff-dot filled easy"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">2/5</small>
+        </td>
+        <td>Постоянно</td>
+        <td>Рост до 500+ отзывов, рейтинг 4.5+</td>
+        <td>Внедрить систему запроса отзывов от учеников. Ответить на непрочитанный отзыв. Мониторить и отвечать на все отзывы. Цель: обогнать tetrika-school.ru (1 176 отзывов).</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Исправить неканонические URL</strong></td>
+        <td><span class="badge info">Средний</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">2/5</small>
+        </td>
+        <td>3-5 дней</td>
+        <td>-296 мусорных URL в индексе</td>
+        <td>Добавить параметры /?author, /?role, /?spm, /?utm_m, /?ybaip в Clean-Param в robots.txt. Проверить и расширить canonical на всех страницах.</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>Устранить 404 ошибки</strong></td>
+        <td><span class="badge info">Средний</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled easy"></div>
+            <div class="diff-dot filled easy"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">2/5</small>
+        </td>
+        <td>3-5 дней</td>
+        <td>Лучшее UX и индексация</td>
+        <td>Настроить 301-редиректы для удалённых статей (/article/*) на актуальные страницы. Исправить /forgot-password. Удалить /new-year-box из sitemap.</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><strong>Наращивание ссылочной массы</strong></td>
+        <td><span class="badge info">Средний</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot filled hard"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">4/5</small>
+        </td>
+        <td>Постоянно</td>
+        <td>Рост до 15 000+ ссылок</td>
+        <td>Вернуть ссылочную массу к уровню ~18 000. PR-статьи, гостевые публикации, партнёрства с вузами и школами. Создать linkbait-контент (калькуляторы ЕГЭ, справочники).</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><strong>Консолидация поддоменов</strong></td>
+        <td><span class="badge info">Низкий</span></td>
+        <td>
+          <div class="difficulty">
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot filled medium"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+          <small style="color:var(--text-muted)">3/5</small>
+        </td>
+        <td>1-2 недели</td>
+        <td>Консолидация ссылочного веса</td>
+        <td>Проверить поддомены, появляющиеся в поиске с 2019 года. Настроить редиректы на основной домен, если поддомены не используются.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FORECAST SECTION -->
+<div id="forecast" class="section">
+  <div class="section-title">
+    <div class="icon green">📈</div>
+    Прогноз улучшений
+  </div>
+  
+  <div class="chart-row">
+    <div class="chart-box">
+      <h3>Прогноз роста кликов (3-12 мес.)</h3>
+      <div>
+  <div style="display:flex; gap:15px; margin-bottom:15px; font-size:0.8em; flex-wrap:wrap">
+    <span><span style="display:inline-block;width:12px;height:3px;background:#6c5ce7;vertical-align:middle"></span> Факт</span>
+    <span><span style="display:inline-block;width:12px;height:3px;background:#2ed573;vertical-align:middle"></span> Оптимистичный</span>
+    <span><span style="display:inline-block;width:12px;height:3px;background:#ffa502;vertical-align:middle"></span> Консервативный</span>
+    <span><span style="display:inline-block;width:12px;height:3px;background:#ff6b6b;vertical-align:middle"></span> Без изменений</span>
+  </div>
+  <div style="position:relative; height:200px; margin-bottom:10px">
+    <div style="display:flex; align-items:end; height:180px; gap:2px; padding-bottom:20px"><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:50.623333333333335%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:50.623333333333335%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:50.623333333333335%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div><div style="position:absolute;bottom:50.623333333333335%;width:10px;height:10px;border-radius:50%;background:#6c5ce7;z-index:4"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:54.166666666666664%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:52.22222222222223%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:50%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:59.72222222222222%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:54.166666666666664%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:49.44444444444444%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:66.66666666666666%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:56.94444444444444%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:48.61111111111111%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:72.22222222222221%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:59.72222222222222%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:47.77777777777778%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:77.77777777777779%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:62.5%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:50%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:83.33333333333334%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:65.27777777777779%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:51.388888888888886%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:86.11111111111111%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:66.66666666666666%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:50.83333333333333%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:88.88888888888889%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:68.05555555555556%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:50%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:91.66666666666666%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:69.44444444444444%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:49.44444444444444%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:94.44444444444444%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:70.83333333333334%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:50.55555555555556%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:95.83333333333334%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:72.22222222222221%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:51.11111111111111%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;position:relative;height:100%"><div style="position:absolute;bottom:97.22222222222221%;width:8px;height:8px;border-radius:50%;background:#2ed573;z-index:3"></div><div style="position:absolute;bottom:73.61111111111111%;width:6px;height:6px;border-radius:50%;background:#ffa502;z-index:2"></div><div style="position:absolute;bottom:51.388888888888886%;width:4px;height:4px;border-radius:50%;background:#ff6b6b;z-index:1"></div></div></div><div style="display:flex; gap:2px"><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Мар 26</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Апр</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Май</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Июн</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Июл</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Авг</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Сен</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Окт</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Ноя</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Дек</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Янв 27</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Фев</div><div style="flex:1;text-align:center;font-size:0.65em;color:#8b8fa3">Мар 27</div></div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:15px">
+    <div style="background:#252836; border-radius:8px; padding:12px; border-left:3px solid #2ed573">
+      <div style="font-size:0.8em; color:#8b8fa3">Оптимист. (12 мес.)</div>
+      <div style="font-size:1.3em; font-weight:800; color:#2ed573">350 000</div>
+      <div style="font-size:0.75em; color:#8b8fa3">+92% от текущего</div>
+    </div>
+    <div style="background:#252836; border-radius:8px; padding:12px; border-left:3px solid #ffa502">
+      <div style="font-size:0.8em; color:#8b8fa3">Консерват. (12 мес.)</div>
+      <div style="font-size:1.3em; font-weight:800; color:#ffa502">265 000</div>
+      <div style="font-size:0.75em; color:#8b8fa3">+45% от текущего</div>
+    </div>
+    <div style="background:#252836; border-radius:8px; padding:12px; border-left:3px solid #ff6b6b">
+      <div style="font-size:0.8em; color:#8b8fa3">Без изменений</div>
+      <div style="font-size:1.3em; font-weight:800; color:#ff6b6b">185 000</div>
+      <div style="font-size:0.75em; color:#8b8fa3">+1.5% (стагнация)</div>
+    </div>
+  </div>
+</div>
+    </div>
+    <div class="chart-box">
+      <h3>Прогноз роста ИКС</h3>
+      <div>
+  <div style="position:relative">
+    <div style="display:flex; align-items:end; height:180px; gap:20px; padding: 0 20px">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.85em;font-weight:700;color:#6c5ce7">8.1k</div><div style="width:100%;height:15%;background:linear-gradient(180deg,#6c5ce7,#6c5ce780);border-radius:8px 8px 0 0;border:2px dashed #6c5ce7;border-bottom:none"></div><div style="font-size:0.8em;color:#8b8fa3">Мар 26</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.85em;font-weight:700;color:#2ed573">9.2k</div><div style="width:100%;height:22.857142857142858%;background:linear-gradient(180deg,#2ed57380,#2ed57330);border-radius:8px 8px 0 0;border:2px dashed #2ed573;border-bottom:none"></div><div style="font-size:0.8em;color:#8b8fa3">Июн 26</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.85em;font-weight:700;color:#2ed573">10.4k</div><div style="width:100%;height:31.428571428571427%;background:linear-gradient(180deg,#2ed57380,#2ed57330);border-radius:8px 8px 0 0;border:2px dashed #2ed573;border-bottom:none"></div><div style="font-size:0.8em;color:#8b8fa3">Сен 26</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.85em;font-weight:700;color:#2ed573">11.3k</div><div style="width:100%;height:37.857142857142854%;background:linear-gradient(180deg,#2ed57380,#2ed57330);border-radius:8px 8px 0 0;border:2px dashed #2ed573;border-bottom:none"></div><div style="font-size:0.8em;color:#8b8fa3">Дек 26</div></div><div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="font-size:0.85em;font-weight:700;color:#2ed573">12.0k</div><div style="width:100%;height:42.857142857142854%;background:linear-gradient(180deg,#2ed57380,#2ed57330);border-radius:8px 8px 0 0;border:2px dashed #2ed573;border-bottom:none"></div><div style="font-size:0.8em;color:#8b8fa3">Мар 27</div></div>
+    </div>
+    <div style="position:absolute; top:0; left:0; right:0; border-top:1px dashed rgba(139,143,163,0.3); padding-top:4px">
+      <span style="font-size:0.75em; color:#8b8fa360">foxford.ru: 19 400 (лидер рынка)</span>
+    </div>
+  </div>
+  <div style="background:#252836; border-radius:8px; padding:15px; margin-top:15px; text-align:center">
+    <span style="color:#8b8fa3">Прогноз роста ИКС:</span> 
+    <strong style="color:#6c5ce7">8 100</strong> → 
+    <strong style="color:#2ed573">12 000</strong> 
+    <span style="color:#2ed573">(+48%)</span>
+    <span style="color:#8b8fa3"> за 12 месяцев</span>
+  </div>
+</div>
+    </div>
+  </div>
+  
+  <div style="background:linear-gradient(135deg,rgba(108,92,231,0.1),rgba(0,206,201,0.1)); border-radius:16px; padding:30px; margin-top:20px;">
+    <h3 style="margin-bottom:15px">🎯 Целевые показатели на 12 месяцев</h3>
+    <div class="comparison-grid">
+      <div class="comparison-card" style="background:var(--surface)">
+        <h4>КЛИКИ В ПОИСКЕ</h4>
+        <div style="display:flex; align-items:baseline; gap:10px">
+          <div class="comparison-value" style="color:var(--text-muted); font-size:1.2em; text-decoration:line-through">182 244/мес</div>
+          <div class="comparison-value" style="color:var(--success)">→ 350 000+</div>
+        </div>
+        <div class="comparison-sub">При выполнении задач 1-4</div>
+      </div>
+      <div class="comparison-card" style="background:var(--surface)">
+        <h4>CTR</h4>
+        <div style="display:flex; align-items:baseline; gap:10px">
+          <div class="comparison-value" style="color:var(--text-muted); font-size:1.2em; text-decoration:line-through">1.55%</div>
+          <div class="comparison-value" style="color:var(--success)">→ 3.0%+</div>
+        </div>
+        <div class="comparison-sub">Оптимизация сниппетов и title</div>
+      </div>
+      <div class="comparison-card" style="background:var(--surface)">
+        <h4>ИКС</h4>
+        <div style="display:flex; align-items:baseline; gap:10px">
+          <div class="comparison-value" style="color:var(--text-muted); font-size:1.2em; text-decoration:line-through">8 100</div>
+          <div class="comparison-value" style="color:var(--success)">→ 12 000+</div>
+        </div>
+        <div class="comparison-sub">Работа над качеством и отзывами</div>
+      </div>
+      <div class="comparison-card" style="background:var(--surface)">
+        <h4>ОТЗЫВЫ</h4>
+        <div style="display:flex; align-items:baseline; gap:10px">
+          <div class="comparison-value" style="color:var(--text-muted); font-size:1.2em; text-decoration:line-through">179</div>
+          <div class="comparison-value" style="color:var(--success)">→ 500+</div>
+        </div>
+        <div class="comparison-sub">Система запроса отзывов от учеников</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="section" style="background:linear-gradient(135deg,#1a1d27,#2d1b69); border:none;">
+  <div class="section-title">
+    <div class="icon purple">🏆</div>
+    Резюме аудита
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; margin-top:10px">
+    <div style="text-align:center; padding:20px">
+      <div style="font-size:3em; font-weight:900; color:var(--danger)">3</div>
+      <div style="color:var(--text-muted)">Критических проблемы</div>
+    </div>
+    <div style="text-align:center; padding:20px">
+      <div style="font-size:3em; font-weight:900; color:var(--warning)">3</div>
+      <div style="color:var(--text-muted)">Проблемы среднего уровня</div>
+    </div>
+    <div style="text-align:center; padding:20px">
+      <div style="font-size:3em; font-weight:900; color:var(--accent2)">4</div>
+      <div style="color:var(--text-muted)">Возможности для роста</div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:20px; padding:20px; background:rgba(0,0,0,0.2); border-radius:12px">
+    <p style="font-size:1.1em; color:var(--text-muted)">
+      <strong style="color:var(--success)">Общая оценка:</strong> Сайт показывает сильный рост трафика (+256% показов, +1053% кликов за год). 
+      Однако критически важно исправить дубли title/description, адаптировать для мобильных и оптимизировать краулинговый бюджет. 
+      При выполнении всех рекомендаций ожидается рост кликов до <strong style="color:var(--accent2)">350 000+/мес</strong> и ИКС до <strong style="color:var(--accent2)">12 000+</strong> в течение 12 месяцев.
+    </p>
+  </div>
+</div>
+
+<div style="text-align:center; color:var(--text-muted); padding:30px; font-size:0.85em">
+  Аудит подготовлен на основе данных Яндекс Вебмастера • maximumtest.ru • 23 марта 2026
+</div>
+</div>
+<script>
+// Data will be injected next
+window.auditData = true;
+</script>
+
+</body></html>

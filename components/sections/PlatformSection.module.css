@@ -1,0 +1,392 @@
+.platformSection {
+  --orange: #FF6B00;
+  --orange-light: rgba(255, 107, 0, 0.15);
+  --bg-dark: #1A1A2E;
+  --card-bg: #23232D;
+  --text-primary: #FFFFFF;
+  --text-muted: #A0A0B0;
+
+  padding: 80px 0;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.sectionHeader {
+  margin-bottom: 48px;
+}
+
+.label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--orange);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #FFF;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 600px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Left Column: Laptop Mockup */
+.laptopFrame {
+  position: relative;
+}
+
+.laptopScreen {
+  background-color: #111120;
+  border: 3px solid #3a3a4a;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.laptopChin {
+  height: 18px;
+  background: linear-gradient(180deg, #3a3a4a 0%, #2a2a38 100%);
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laptopChin::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background-color: #4a4a5a;
+  border-radius: 2px;
+}
+
+.screenHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 10px;
+  background-color: #161626;
+}
+
+.screenDots {
+  display: flex;
+  gap: 6px;
+}
+
+.screenDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.screenDot:nth-child(1) { background-color: #ff5f56; }
+.screenDot:nth-child(2) { background-color: #ffbd2e; }
+.screenDot:nth-child(3) { background-color: #27c93f; }
+
+.lessonTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFF;
+  margin-left: 8px;
+}
+
+.videoZone {
+  position: relative;
+  background: linear-gradient(135deg, #2a2a40 0%, #1f1f30 100%);
+  min-height: 280px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.teacherIllustration {
+  width: 140px;
+  height: 140px;
+  background-color: #3b3b55;
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: -30px;
+}
+
+.teacherIllustration::after {
+  content: '';
+  position: absolute;
+  bottom: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 120px;
+  background-color: #3b3b55;
+  border-radius: 110px 110px 0 0;
+}
+
+/* Sidebar inside the screen */
+.screenSidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: rgba(22, 22, 38, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 6px 0;
+}
+
+.sidebarCheck {
+  color: var(--orange);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.studentOverlay {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  background-color: rgba(15, 15, 26, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 107, 0, 0.4);
+  z-index: 2;
+}
+
+.studentAvatar {
+  width: 28px;
+  height: 28px;
+  background-color: #555566;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.studentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.studentStatus {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.progressTrack {
+  width: 80px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  width: 98%;
+  height: 100%;
+  background-color: var(--orange);
+  border-radius: 2px;
+}
+
+.toastOverlay {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  background-color: rgba(28, 28, 30, 0.95);
+  border: 1px solid var(--orange);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(255, 107, 0, 0.15);
+  animation: float 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.toastIcon {
+  color: var(--orange);
+  display: flex;
+}
+
+.toastText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFF;
+}
+
+/* Right Column: Features Cards */
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.featureCard {
+  background-color: var(--card-bg);
+  border-radius: 14px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.25s ease;
+}
+
+.featureCard:hover {
+  border-color: rgba(255, 107, 0, 0.4);
+  background-color: #2a2a36;
+  transform: translateX(4px);
+}
+
+.featureIconWrapper {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background-color: var(--orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+.featureIconWrapper svg {
+  width: 22px;
+  height: 22px;
+  stroke: #FFFFFF;
+}
+
+.featureContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.featureTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFF;
+}
+
+.featureDesc {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .gridContainer {
+    gap: 32px;
+  }
+
+  .screenSidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .platformSection {
+    padding: 48px 0;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .videoZone {
+    min-height: 220px;
+  }
+
+  .screenSidebar {
+    display: none;
+  }
+
+  .featuresList {
+    gap: 8px;
+  }
+
+  .featureCard {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .featureIconWrapper {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .featureIconWrapper svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .studentOverlay {
+    bottom: 10px;
+    left: 10px;
+    padding: 8px 10px;
+  }
+
+  .toastOverlay {
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+  }
+}

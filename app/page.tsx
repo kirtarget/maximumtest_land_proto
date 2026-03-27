@@ -4,6 +4,7 @@ import Hero from '@/components/sections/Hero'
 import StatStrip from '@/components/sections/StatStrip'
 import ProblemSolution from '@/components/sections/ProblemSolution'
 import Mechanism from '@/components/sections/Mechanism'
+import PlatformSection from '@/components/sections/PlatformSection'
 import Teachers from '@/components/sections/Teachers'
 import Results from '@/components/sections/Results'
 import ComparisonTable from '@/components/sections/ComparisonTable'
@@ -24,6 +25,7 @@ export default function Home() {
         <StatStrip />
         <ProblemSolution />
         <Mechanism />
+        <PlatformSection />
         <Teachers />
         <Results />
         <ComparisonTable />

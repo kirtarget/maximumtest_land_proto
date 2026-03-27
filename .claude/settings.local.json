@@ -16,7 +16,11 @@
       "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"education online school exam preparation landing page modern\" --design-system -p \"MAXIMUM Education\" -f markdown)",
       "Read(//usr/**)",
       "Bash(command -v python3)",
-      "Bash(vercel --version)"
+      "Bash(vercel --version)",
+      "WebFetch(domain:maximumtest-site.storage.yandexcloud.net)",
+      "Bash(pip install:*)",
+      "Bash(python -c \":*)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local assets
+/html-blocks/
+maximumtest.ru_testkirtarget(iPhone XR).png

@@ -39,9 +39,9 @@ export default function TenthGradeOptions() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
-            Два варианта подготовки для учеников 10 класса
+            В 10 классе? У вас есть преимущество
           </h2>
-          <p className="mt-3 text-muted text-lg">Выберите темп, который подходит именно вам.</p>
+          <p className="mt-3 text-muted text-lg">Начните сейчас — и к 11 классу ваш ребёнок будет готов, пока другие только начнут паниковать.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">

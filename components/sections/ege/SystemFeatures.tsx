@@ -31,7 +31,7 @@ export default function SystemFeatures() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
-            Система, которая приводит к цели
+            Всё для подготовки — в одном месте
           </h2>
         </div>
 

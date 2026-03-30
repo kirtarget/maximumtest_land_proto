@@ -29,13 +29,13 @@ export default function Home() {
         <Teachers />
         <Results />
         <ComparisonTable />
-        <Pricing />
-        <OfflineCities />
-        <Guarantee />
         <FreeLesson />
+        <Pricing />
+        <Guarantee />
+        <OfflineCities />
+        <FAQ />
         <Quiz />
         <FinalCTA />
-        <FAQ />
       </main>
       <Footer />
     </>

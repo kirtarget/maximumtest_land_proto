@@ -29,9 +29,9 @@ export default function EgeMechanism() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
-            Как мы помогаем ученикам достигать максимальных результатов
+            Почему 93% учеников доходят до конца курса
           </h2>
-          <p className="mt-3 text-muted text-lg">Это не случайность — это система</p>
+          <p className="mt-3 text-muted text-lg">Не мотивация — а система, которая не даёт сойти с дистанции</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

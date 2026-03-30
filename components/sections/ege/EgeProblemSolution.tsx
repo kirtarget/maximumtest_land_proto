@@ -31,10 +31,10 @@ export default function EgeProblemSolution() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
-            Мы решаем реальные проблемы, с которыми сталкиваются родители
+            Знакомо? Эти проблемы решаемы
           </h2>
           <p className="mt-3 text-muted text-lg max-w-xl mx-auto">
-            Наша цель — максимальный результат вашего ребёнка на ЕГЭ
+            Каждый второй родитель сталкивается с этим. Мы знаем, как помочь — и делаем это каждый день.
           </p>
         </div>
 

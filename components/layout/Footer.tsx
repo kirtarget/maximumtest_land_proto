@@ -1,7 +1,7 @@
 import { Phone } from 'lucide-react'
 
 const col1 = [
-  { label: 'Подготовка к ЕГЭ', href: '#mechanism' },
+  { label: 'Подготовка к ЕГЭ', href: '/ege/' },
   { label: 'Подготовка к ОГЭ', href: '#mechanism' },
   { label: 'Преподаватели', href: '#teachers' },
   { label: 'Результаты', href: '#results' },

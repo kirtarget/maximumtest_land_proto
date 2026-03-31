@@ -3,7 +3,10 @@ import Footer from '@/components/layout/Footer'
 import Hero from '@/components/sections/Hero'
 import StatStrip from '@/components/sections/StatStrip'
 import ProblemSolution from '@/components/sections/ProblemSolution'
+import EarlyStart from '@/components/sections/EarlyStart'
 import Mechanism from '@/components/sections/Mechanism'
+import Grade10Advantage from '@/components/sections/Grade10Advantage'
+import SubjectsGrid from '@/components/sections/SubjectsGrid'
 import PlatformSection from '@/components/sections/PlatformSection'
 import Teachers from '@/components/sections/Teachers'
 import Results from '@/components/sections/Results'
@@ -24,7 +27,10 @@ export default function Home() {
         <Hero />
         <StatStrip />
         <ProblemSolution />
+        <EarlyStart />
         <Mechanism />
+        <Grade10Advantage />
+        <SubjectsGrid />
         <PlatformSection />
         <Teachers />
         <Results />

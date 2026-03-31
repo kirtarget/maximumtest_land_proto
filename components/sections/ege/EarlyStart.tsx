@@ -93,7 +93,21 @@ export default function EarlyStart() {
           <h3 className="text-lg font-bold text-dark mb-6 text-center">
             Когда начинать подготовку к ЕГЭ?
           </h3>
-          <div className="space-y-4">
+
+          {/* Desktop: горизонтальный */}
+          <div className="hidden md:grid grid-cols-4 gap-6">
+            {timeline.map((t, i) => (
+              <div key={i} className="flex flex-col items-center text-center gap-2">
+                <div className={`w-3.5 h-3.5 rounded-full ${t.color}`} />
+                <span className="font-bold text-dark text-lg">{t.months}</span>
+                <span className="text-muted text-sm">({t.label})</span>
+                <p className="text-muted text-sm mt-1">{t.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile: вертикальный */}
+          <div className="md:hidden space-y-4">
             {timeline.map((t, i) => (
               <div key={i} className="flex items-start gap-4">
                 <div className="flex flex-col items-center">

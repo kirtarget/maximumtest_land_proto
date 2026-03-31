@@ -63,14 +63,14 @@ export default function EgePage() {
         <Breadcrumbs items={[{ label: 'Главная', href: '/' }, { label: 'Подготовка к ЕГЭ' }]} />
         <EgeHero />
         <EgeStatStrip />
+        <EarlyStart />
+        <TenthGradeOptions />
         <EgeProblemSolution />
         <EgeMechanism />
-        <SubjectsGrid />
+
         <SystemFeatures />
+        <SubjectsGrid />
         <UniversityLogos />
-        <EarlyStart />
-        <EgePricing />
-        <TenthGradeOptions />
         <EgeFAQ />
         <EgeFinalCTA />
       </main>

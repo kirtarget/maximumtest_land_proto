@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Clock, BarChart3, Target } from 'lucide-react'
+import { Clock, BarChart3, Target, BookOpen, Brain, Layers, ArrowRight } from 'lucide-react'
 
 const cards = [
   {
@@ -35,11 +35,22 @@ const cards = [
   },
 ]
 
-const timeline = [
-  { months: '18–24 мес', label: '10 класс, осень', desc: 'Закрытие пробелов, сильная база', color: 'bg-green-500' },
-  { months: '12 мес', label: '10 класс, весна', desc: 'Полный курс подготовки', color: 'bg-orange' },
-  { months: '6 мес', label: '11 класс, декабрь', desc: 'Интенсив, но без запаса', color: 'bg-amber-500' },
-  { months: '3 мес', label: '11 класс, март', desc: 'Только повторение', color: 'bg-red-500' },
+const proofs = [
+  {
+    icon: Layers,
+    title: 'ЕГЭ охватывает программу с 5 по 11 класс',
+    desc: 'Объём материала огромный — за полгода его невозможно качественно освоить. Два года дают время на глубокое понимание каждой темы.',
+  },
+  {
+    icon: Brain,
+    title: 'Не забыть то, что учил к ОГЭ',
+    desc: 'Подготовка в 10 классе сохраняет и укрепляет базу, наработанную к ОГЭ. Без практики знания быстро забываются.',
+  },
+  {
+    icon: BookOpen,
+    title: 'Основа для уверенного старта в 11 классе',
+    desc: 'В 10 классе закрываем пробелы и создаём прочный фундамент. В 11 классе — финишный рывок, а не паника с нуля.',
+  },
 ]
 
 export default function EarlyStart() {
@@ -48,10 +59,10 @@ export default function EarlyStart() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
-            Чем раньше старт — тем выше балл
+            Подготовка к ЕГЭ с 10 класса повышает шансы поступления на бюджет
           </h2>
           <p className="mt-3 text-muted text-lg max-w-2xl mx-auto">
-            Ученики, начавшие подготовку за 1,5 года, набирают на ЕГЭ в среднем на 12 баллов больше, чем те, кто готовился 3–4 месяца перед экзаменом.
+            ФИПИ рекомендуют начинать подготовку за 2 года до экзамена
           </p>
         </div>
 
@@ -82,54 +93,34 @@ export default function EarlyStart() {
           })}
         </div>
 
-        {/* Таймлайн подготовки */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-white rounded-[20px] p-7 md:p-10 shadow-[0_2px_16px_rgba(0,0,0,0.06)] max-w-3xl mx-auto"
-        >
-          <h3 className="text-lg font-bold text-dark mb-6 text-center">
-            Когда начинать подготовку к ЕГЭ?
-          </h3>
-
-          {/* Desktop: горизонтальный */}
-          <div className="hidden md:grid grid-cols-4 gap-6">
-            {timeline.map((t, i) => (
-              <div key={i} className="flex flex-col items-center text-center gap-2">
-                <div className={`w-3.5 h-3.5 rounded-full ${t.color}`} />
-                <span className="font-bold text-dark text-lg">{t.months}</span>
-                <span className="text-muted text-sm">({t.label})</span>
-                <p className="text-muted text-sm mt-1">{t.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile: вертикальный */}
-          <div className="md:hidden space-y-4">
-            {timeline.map((t, i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="flex flex-col items-center">
-                  <div className={`w-3 h-3 rounded-full ${t.color} shrink-0 mt-1.5`} />
-                  {i < timeline.length - 1 && <div className="w-px h-8 bg-border" />}
+        {/* Доказательства — почему начинать в 10 классе */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {proofs.map((p, i) => {
+            const Icon = p.icon
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                className="bg-white rounded-[20px] p-7 shadow-[0_2px_16px_rgba(0,0,0,0.06)]"
+              >
+                <div className="w-10 h-10 rounded-xl bg-orange/10 flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 text-orange" />
                 </div>
-                <div className="flex-1 pb-2">
-                  <div className="flex flex-wrap items-baseline gap-2">
-                    <span className="font-bold text-dark">{t.months}</span>
-                    <span className="text-muted text-sm">({t.label})</span>
-                  </div>
-                  <p className="text-muted text-sm mt-0.5">{t.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+                <h3 className="text-lg font-bold text-dark mb-2">{p.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{p.desc}</p>
+              </motion.div>
+            )
+          })}
+        </div>
 
         <blockquote className="mt-10 border-l-4 border-orange pl-5 max-w-3xl mx-auto">
           <p className="text-dark text-lg leading-relaxed italic">
-            «Десятый класс — оптимальное время для старта. Ученик проходит программу без спешки,
-            пишет пробные экзамены и подходит к 11 классу с уверенностью, а не с паникой.»
+            «Не откладывайте подготовку на потом. Каждый месяц промедления — это темы,
+            которые придётся проходить в авральном режиме. Начните сейчас — и к 11 классу
+            ваш ребёнок будет готов, пока другие только начнут паниковать.»
           </p>
         </blockquote>
 

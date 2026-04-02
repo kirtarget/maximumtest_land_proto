@@ -1,27 +1,27 @@
 'use client'
 import { motion } from 'framer-motion'
-import { BookOpen, Brain, Shield, Calendar } from 'lucide-react'
+import { Clock, AlertTriangle, Users, Flame, ArrowRight } from 'lucide-react'
 
-const advantages = [
+const reasons = [
   {
-    icon: Calendar,
-    title: 'Два года вместо одного',
-    desc: 'Программа растянута — не нужно зубрить. Темы усваиваются глубоко и без стресса.',
+    icon: Clock,
+    title: 'Время уходит',
+    desc: 'До ЕГЭ осталось меньше, чем кажется. Каждая неделя — это тема, которую можно успеть пройти и закрепить.',
   },
   {
-    icon: Brain,
-    title: 'Закрываем пробелы за 10 класс',
-    desc: 'Многие темы ЕГЭ основаны на программе 10 класса. Разбираем их, пока проходят в школе.',
+    icon: AlertTriangle,
+    title: 'Пробелы копятся',
+    desc: 'Чем дольше ждёте, тем больше материала придётся наверстывать в авральном режиме.',
   },
   {
-    icon: BookOpen,
-    title: 'Опережаем школьную программу',
-    desc: 'К 11 классу ученик уже знает большую часть материала — остаётся только закрепить.',
+    icon: Users,
+    title: 'Конкуренты уже готовятся',
+    desc: '40% высокобалльников начали подготовку за 1,5+ года. Каждый день промедления — это их преимущество.',
   },
   {
-    icon: Shield,
-    title: 'Меньше давления в 11 классе',
-    desc: 'Пока одноклассники паникуют — ваш ребёнок спокойно повторяет и решает варианты.',
+    icon: Flame,
+    title: 'Лето за 1 рубль',
+    desc: 'Начните прямо сейчас по специальной цене — и войдите в 11 класс подготовленными.',
   },
 ]
 
@@ -31,15 +31,15 @@ export default function Grade10Advantage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-dark">
-            В 10 классе у вас есть преимущество
+            Каждый день без подготовки — потерянные баллы
           </h2>
           <p className="mt-3 text-muted text-lg max-w-2xl mx-auto">
-            Начать на год раньше — значит прийти к экзамену подготовленным и уверенным
+            Не откладывайте — начните сейчас, где бы вы ни были
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {advantages.map((item, i) => {
+          {reasons.map((item, i) => {
             const Icon = item.icon
             return (
               <motion.div
@@ -58,6 +58,16 @@ export default function Grade10Advantage() {
               </motion.div>
             )
           })}
+        </div>
+
+        <div className="text-center mt-10">
+          <a
+            href="#quiz"
+            className="inline-flex items-center gap-2 bg-orange text-white font-bold px-8 py-4 rounded-xl hover:bg-orangeh transition-colors text-base"
+          >
+            Начать подготовку сейчас
+            <ArrowRight className="w-5 h-5" />
+          </a>
         </div>
       </div>
     </section>

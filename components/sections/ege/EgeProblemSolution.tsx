@@ -6,30 +6,30 @@ const items = [
   {
     icon: Clock,
     title: 'Время уходит',
-    desc: 'До ЕГЭ осталось меньше, чем кажется. Каждая неделя — это тема, которую можно успеть пройти и закрепить.',
+    desc: 'Каждая неделя — тема, которую можно успеть пройти и закрепить.',
     accent: 'bg-orange/10',
     iconColor: 'text-orange',
   },
   {
     icon: TrendingUp,
     title: 'Пробелы копятся',
-    desc: 'Чем дольше ждёте, тем больше материала придётся наверстать в авральном режиме.',
+    desc: 'Чем позже старт, тем больше материала приходится разбирать за короткий срок.',
     accent: 'bg-orange/10',
     iconColor: 'text-orange',
   },
   {
     icon: Users,
-    title: 'Конкуренты уже готовятся',
-    desc: '40% высокобалльников начали подготовку за 1,5+ года. Каждый день промедления — это их преимущество.',
+    title: 'Конкуренты готовятся',
+    desc: '40% высокобалльников начинают подготовку за 1,5 года — не теряй своё преимущество.',
     accent: 'bg-orange/10',
     iconColor: 'text-orange',
   },
   {
     icon: Flame,
-    title: 'Лето за 1 рубль',
-    desc: 'Начните прямо сейчас по специальной цене — и войдите в 11 класс подготовленными.',
-    accent: 'bg-amber-50',
-    iconColor: 'text-amber-500',
+    title: 'Напряжение растёт',
+    desc: 'Чтобы снизить тревогу, достаточно начать подготовку — и увидеть чёткий план по каждой теме.',
+    accent: 'bg-orange/10',
+    iconColor: 'text-orange',
   },
 ]
 
@@ -42,7 +42,7 @@ export default function EgeProblemSolution() {
             Каждый день без подготовки — потерянные баллы
           </h2>
           <p className="mt-3 text-muted text-lg max-w-xl mx-auto">
-            Не откладывайте — начните сейчас, где бы вы ни были
+            Учитесь онлайн или очно в 65 городах России
           </p>
         </div>
 
@@ -73,8 +73,14 @@ export default function EgeProblemSolution() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center mt-10"
+          className="flex flex-col items-center mt-10 gap-5"
         >
+          <div className="inline-flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-6 py-4 max-w-2xl">
+            <Flame className="w-6 h-6 text-amber-500 shrink-0" />
+            <p className="text-dark font-semibold text-base sm:text-lg">
+              Лето за 1 рубль — начните готовиться по специальной цене
+            </p>
+          </div>
           <a
             href="#quiz"
             className="inline-flex items-center gap-2 bg-orange text-white font-bold text-base px-8 py-4 rounded-xl hover:bg-orangeh transition-colors"

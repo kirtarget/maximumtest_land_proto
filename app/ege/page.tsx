@@ -5,11 +5,11 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import EgeHero from '@/components/sections/ege/EgeHero'
 import EgeStatStrip from '@/components/sections/ege/EgeStatStrip'
 import EarlyStart from '@/components/sections/ege/EarlyStart'
-import TenthGradeOptions from '@/components/sections/ege/TenthGradeOptions'
 import EgeProblemSolution from '@/components/sections/ege/EgeProblemSolution'
+import Grade10Stats from '@/components/sections/ege/Grade10Stats'
+import TenthGradeOptions from '@/components/sections/ege/TenthGradeOptions'
 import EgeMechanism from '@/components/sections/ege/EgeMechanism'
 import SubjectsGrid from '@/components/sections/ege/SubjectsGrid'
-import EgePricing from '@/components/sections/ege/EgePricing'
 import UniversityLogos from '@/components/sections/ege/UniversityLogos'
 import SystemFeatures from '@/components/sections/ege/SystemFeatures'
 import EgeFAQ from '@/components/sections/ege/EgeFAQ'
@@ -64,10 +64,10 @@ export default function EgePage() {
         <EgeHero />
         <EgeStatStrip />
         <EarlyStart />
-        <TenthGradeOptions />
         <EgeProblemSolution />
+        <Grade10Stats />
+        <TenthGradeOptions />
         <EgeMechanism />
-
         <SystemFeatures />
         <SubjectsGrid />
         <UniversityLogos />

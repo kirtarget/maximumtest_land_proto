@@ -18,7 +18,7 @@ export default function TenthGradeOptions() {
             Начните подготовку сейчас
           </h2>
           <p className="mt-3 text-muted text-lg max-w-2xl mx-auto">
-            3 формата на выбор: онлайн, гибрид или очно в 65 городах
+            Онлайн или очно в 65+ городах
           </p>
         </div>
 
